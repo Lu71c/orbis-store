@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMINA - Premium Skincare & Aesthetics</title>
+    <title>AURA - Premium Skincare & Aesthetics</title>
     <style>
         /* === RESET E NORMALIZZAZIONE === */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,6 +13,7 @@
             background-color: #faf9f8;
             color: #333;
         }
+        a { text-decoration: none; color: inherit; }
 
         /* === TIPOGRAFIA FLUIDA === */
         h1 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; letter-spacing: 2px; }
@@ -84,6 +85,7 @@
             transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
         .product-card:hover { transform: translateY(-5px); }
         
@@ -96,6 +98,12 @@
         .product-info { padding: 1.5rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .product-price { font-weight: bold; color: #222; margin: 1rem 0; font-size: 1.2rem; }
         
+        .card-link {
+            display: block;
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
         button.add-to-cart {
             background: #222;
             color: #fff;
@@ -107,6 +115,8 @@
             cursor: pointer;
             transition: background 0.3s;
             margin-top: 1rem;
+            position: relative;
+            z-index: 2;
         }
         button.add-to-cart:hover { background: #555; }
 
@@ -145,10 +155,22 @@
         .cart-item {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 1rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid #f5f5f5;
         }
+        .remove-btn {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.2s;
+        }
+        .remove-btn:hover { background: #cc0000; }
         
         .cart-footer { padding: 1.5rem; border-top: 1px solid #eee; background: #faf9f8; }
         .cart-total-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
@@ -170,7 +192,7 @@
 
     <!-- === INIZIO SEZIONE HEADER === -->
     <header>
-        <div class="logo">LUMINA</div>
+        <div class="logo">AURA</div>
         <button class="cart-toggle" id="openCartBtn">
             Carrello 
             <span class="cart-count" id="cartCount">0</span>
@@ -189,49 +211,121 @@
             
             <!-- Prodotto 1 -->
             <article class="product-card">
-                <div class="image-wrapper">
-                    <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                        <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/siero_viso.jpg</strong></span>
-                        <img src="img/siero_viso.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Siero Viso">
+                <a href="siero_viso.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/siero_viso.jpg</strong></span>
+                            <img src="img/siero_viso.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Siero Viso">
+                        </div>
                     </div>
-                </div>
-                <div class="product-info">
-                    <h3>Siero Illuminante</h3>
-                    <p>Vitamina C & Acido Ialuronico</p>
-                    <div class="product-price">€ 45.00</div>
+                    <div class="product-info">
+                        <h3>Siero Illuminante</h3>
+                        <p>Vitamina C & Acido Ialuronico</p>
+                        <div class="product-price">€ 45.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
                     <button class="add-to-cart" data-id="p1" data-name="Siero Illuminante" data-price="45.00">Aggiungi</button>
                 </div>
             </article>
 
             <!-- Prodotto 2 -->
             <article class="product-card">
-                <div class="image-wrapper">
-                    <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                        <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/crema_notte.jpg</strong></span>
-                        <img src="img/crema_notte.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Notte">
+                <a href="crema_notte.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/crema_notte.jpg</strong></span>
+                            <img src="img/crema_notte.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Notte">
+                        </div>
                     </div>
-                </div>
-                <div class="product-info">
-                    <h3>Crema Rigenerante Notte</h3>
-                    <p>Estratti botanici rari e retinolo</p>
-                    <div class="product-price">€ 68.00</div>
+                    <div class="product-info">
+                        <h3>Crema Rigenerante Notte</h3>
+                        <p>Estratti botanici rari e retinolo</p>
+                        <div class="product-price">€ 68.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
                     <button class="add-to-cart" data-id="p2" data-name="Crema Rigenerante Notte" data-price="68.00">Aggiungi</button>
                 </div>
             </article>
 
             <!-- Prodotto 3 -->
             <article class="product-card">
-                <div class="image-wrapper">
-                    <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                        <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/detergente.jpg</strong></span>
-                        <img src="img/detergente.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Detergente">
+                <a href="detergente.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/detergente.jpg</strong></span>
+                            <img src="img/detergente.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Detergente">
+                        </div>
                     </div>
-                </div>
-                <div class="product-info">
-                    <h3>Detergente Purificante</h3>
-                    <p>Argilla bianca e tè verde</p>
-                    <div class="product-price">€ 28.00</div>
+                    <div class="product-info">
+                        <h3>Detergente Purificante</h3>
+                        <p>Argilla bianca e tè verde</p>
+                        <div class="product-price">€ 28.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
                     <button class="add-to-cart" data-id="p3" data-name="Detergente Purificante" data-price="28.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 4 -->
+            <article class="product-card">
+                <a href="tonico.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/tonico.jpg</strong></span>
+                            <img src="img/tonico.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Tonico">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Tonico Riequilibrante</h3>
+                        <p>Acqua di rose e amamelide</p>
+                        <div class="product-price">€ 22.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p4" data-name="Tonico Riequilibrante" data-price="22.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 5 -->
+            <article class="product-card">
+                <a href="maschera.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/maschera.jpg</strong></span>
+                            <img src="img/maschera.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Maschera">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Maschera Detox Argilla</h3>
+                        <p>Argilla vulcanica e carbone</p>
+                        <div class="product-price">€ 35.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p5" data-name="Maschera Detox Argilla" data-price="35.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 6 -->
+            <article class="product-card">
+                <a href="olio_corpo.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/olio_corpo.jpg</strong></span>
+                            <img src="img/olio_corpo.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Olio Corpo">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Olio Corpo Vellutante</h3>
+                        <p>Mandorle dolci e jojoba</p>
+                        <div class="product-price">€ 40.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p6" data-name="Olio Corpo Vellutante" data-price="40.00">Aggiungi</button>
                 </div>
             </article>
 
@@ -258,14 +352,15 @@
 
     <!-- === INIZIO SEZIONE FOOTER === -->
     <footer>
-        <p>&copy; 2026 LUMINA Aesthetics. Simulazione Dimostrativa Orbis Engine.</p>
+        <p>&copy; 2026 AURA Aesthetics. Simulazione Dimostrativa Orbis Engine.</p>
     </footer>
 
     <!-- === LOGICA JAVASCRIPT (SANITIZZATA E RIGIDA) === -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Stato E-commerce
+            // Stato E-commerce Globale (Storage)
             let cart = [];
+            const STORAGE_KEY = 'aura_store_cart_v1';
 
             // Nodi DOM
             const btnOpenCart = document.getElementById('openCartBtn');
@@ -277,7 +372,28 @@
             const cartTotalUI = document.getElementById('cartTotalUI');
             const checkoutBtn = document.getElementById('checkoutBtn');
 
-            // UI Actions (Ottimizzate GPU tramite classi di trasformazione)
+            // Storage Validation & Sync
+            const loadCart = () => {
+                try {
+                    const storedData = localStorage.getItem(STORAGE_KEY);
+                    if (storedData) {
+                        const parsed = JSON.parse(storedData);
+                        if (Array.isArray(parsed)) {
+                            // Type checking stretto
+                            cart = parsed.filter(item => item.id && item.name && typeof item.price === 'number' && typeof item.quantity === 'number');
+                        }
+                    }
+                } catch (e) {
+                    console.error("Orbis Engine: Errore parsing localStorage");
+                    cart = [];
+                }
+            };
+
+            const saveCart = () => {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+            };
+
+            // UI Actions (Ottimizzate GPU)
             const toggleCart = (state) => {
                 if(state) sidebar.classList.add('open');
                 else sidebar.classList.remove('open');
@@ -286,7 +402,14 @@
             btnOpenCart.addEventListener('click', () => toggleCart(true));
             btnCloseCart.addEventListener('click', () => toggleCart(false));
 
-            // Logica Carrello
+            // Logica Rimuovi da Carrello
+            const removeFromCart = (id) => {
+                cart = cart.filter(item => item.id !== id);
+                saveCart();
+                updateCartUI();
+            };
+
+            // Logica Rendering Carrello
             const updateCartUI = () => {
                 // DOM Sanitization: Svuota in sicurezza
                 cartItemsContainer.textContent = ''; 
@@ -307,14 +430,29 @@
                         const itemRow = document.createElement('div');
                         itemRow.className = 'cart-item';
 
-                        const itemNameNode = document.createElement('span');
+                        const infoWrapper = document.createElement('div');
+                        // PATCH APPLICATA: Incolonnamento flessibile per responsive design
+                        infoWrapper.style.display = 'flex';
+                        infoWrapper.style.flexDirection = 'column';
+                        infoWrapper.style.gap = '0.3rem';
+                        
+                        const itemNameNode = document.createElement('div');
                         itemNameNode.textContent = `${item.name} (x${item.quantity})`;
+                        itemNameNode.style.fontWeight = 'bold';
 
-                        const itemPriceNode = document.createElement('span');
+                        const itemPriceNode = document.createElement('div');
                         itemPriceNode.textContent = `€ ${(item.price * item.quantity).toFixed(2)}`;
+                        
+                        infoWrapper.appendChild(itemNameNode);
+                        infoWrapper.appendChild(itemPriceNode);
 
-                        itemRow.appendChild(itemNameNode);
-                        itemRow.appendChild(itemPriceNode);
+                        const removeBtnNode = document.createElement('button');
+                        removeBtnNode.className = 'remove-btn';
+                        removeBtnNode.textContent = 'Rimuovi';
+                        removeBtnNode.addEventListener('click', () => removeFromCart(item.id));
+
+                        itemRow.appendChild(infoWrapper);
+                        itemRow.appendChild(removeBtnNode);
                         cartItemsContainer.appendChild(itemRow);
                     });
                 }
@@ -324,10 +462,10 @@
             };
 
             const addToCart = (id, name, rawPrice) => {
-                // Hardening e validazione tipo dati in ingresso
+                // Hardening e validazione tipo dati
                 const price = parseFloat(rawPrice);
                 if (isNaN(price) || !id || !name) {
-                    console.error("Orbis Engine Validation Error: Parametri di aggiunta non validi.");
+                    console.error("Orbis Engine Validation Error: Parametri non validi.");
                     return;
                 }
 
@@ -337,11 +475,13 @@
                 } else {
                     cart.push({ id, name, price, quantity: 1 });
                 }
+                
+                saveCart();
                 updateCartUI();
-                toggleCart(true); // Feedback visivo immediato
+                toggleCart(true);
             };
 
-            // Event Listeners Prodotti con sanitizzazione dataset
+            // Event Listeners Prodotti
             addToCartBtns.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const id = e.target.getAttribute('data-id');
@@ -359,11 +499,13 @@
                 }
                 alert('Inizializzazione Gateway di Pagamento (Simulazione completata con successo).');
                 cart = []; 
+                saveCart();
                 updateCartUI();
                 toggleCart(false);
             });
 
-            // Init UI
+            // Init Stato
+            loadCart();
             updateCartUI();
         });
     </script>
