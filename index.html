@@ -110,7 +110,7 @@
             text-align: center;
             font-size: clamp(1rem, 1.5vw, 1.2rem);
             font-weight: 300;
-            z-index: 2;
+            z-index: 3;
         }
         .product-card:hover .overlay {
             opacity: 1;
@@ -137,7 +137,7 @@
             transition: background 0.3s;
             margin-top: auto;
             position: relative;
-            z-index: 3;
+            z-index: 4;
         }
         button.add-to-cart:hover { background: #555; }
 
@@ -205,22 +205,6 @@
             cursor: pointer;
         }
 
-        /* === FALLBACK COMPONENT STYLE === */
-        .fallback-placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            background: #f4f0eb;
-            color: #888;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding: 2rem;
-        }
-
         /* === FOOTER === */
         footer { background: #222; color: #fff; text-align: center; padding: 3rem 5%; margin-top: 4rem; }
     </style>
@@ -250,8 +234,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/siero.illuminante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Siero Illuminante">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/siero.illuminante.png</strong></span>
+                            <img src="img/siero.illuminante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Siero Illuminante">
                             <div class="overlay">Vitamina C & Acido Ialuronico</div>
                         </div>
                     </div>
@@ -269,8 +254,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/crema.rigenerante.notte.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Rigenerante Notte">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/crema.rigenerante.notte.png</strong></span>
+                            <img src="img/crema.rigenerante.notte.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Crema Rigenerante Notte">
                             <div class="overlay">Estratti botanici rari e retinolo</div>
                         </div>
                     </div>
@@ -288,8 +274,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/detergente.purificante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Detergente Purificante">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/detergente.purificante.png</strong></span>
+                            <img src="img/detergente.purificante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Detergente Purificante">
                             <div class="overlay">Argilla bianca e tè verde</div>
                         </div>
                     </div>
@@ -307,8 +294,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/tonico.riequilibrante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Tonico Riequilibrante">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/tonico.riequilibrante.png</strong></span>
+                            <img src="img/tonico.riequilibrante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Tonico Riequilibrante">
                             <div class="overlay">Acqua di rose e amamelide</div>
                         </div>
                     </div>
@@ -326,8 +314,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/maschera.detox.argilla.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Maschera Detox Argilla">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/maschera.detox.argilla.png</strong></span>
+                            <img src="img/maschera.detox.argilla.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Maschera Detox Argilla">
                             <div class="overlay">Argilla vulcanica e carbone</div>
                         </div>
                     </div>
@@ -345,8 +334,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/olio.corpo.vellutante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Olio Corpo Vellutante">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/olio.corpo.vellutante.png</strong></span>
+                            <img src="img/olio.corpo.vellutante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Olio Corpo Vellutante">
                             <div class="overlay">Mandorle dolci e jojoba</div>
                         </div>
                     </div>
@@ -364,8 +354,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/esfoliante.enzimatico.viso.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Esfoliante Enzimatico Viso">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/esfoliante.enzimatico.viso.png</strong></span>
+                            <img src="img/esfoliante.enzimatico.viso.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Esfoliante Enzimatico Viso">
                             <div class="overlay">Enzimi di papaia e ananas</div>
                         </div>
                     </div>
@@ -383,8 +374,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/crema.contorno.occhi.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Contorno Occhi">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/crema.contorno.occhi.png</strong></span>
+                            <img src="img/crema.contorno.occhi.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Crema Contorno Occhi">
                             <div class="overlay">Caffeina e peptidi attivi</div>
                         </div>
                     </div>
@@ -402,8 +394,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/siero.retinolo.puro.1%25.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Siero Retinolo Puro 1%">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/siero.retinolo.puro.1%.png</strong></span>
+                            <img src="img/siero.retinolo.puro.1%25.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Siero Retinolo Puro 1%">
                             <div class="overlay">Trattamento notturno anti-età</div>
                         </div>
                     </div>
@@ -421,8 +414,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/essenza.idratante.profonda.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Essenza Idratante Profonda">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/essenza.idratante.profonda.png</strong></span>
+                            <img src="img/essenza.idratante.profonda.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Essenza Idratante Profonda">
                             <div class="overlay">Estratto di loto e probiotici</div>
                         </div>
                     </div>
@@ -440,8 +434,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/balsamo.labbra.riparatore.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Balsamo Labbra Riparatore">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/balsamo.labbra.riparatore.png</strong></span>
+                            <img src="img/balsamo.labbra.riparatore.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Balsamo Labbra Riparatore">
                             <div class="overlay">Burro di karité e cera d'api</div>
                         </div>
                     </div>
@@ -459,8 +454,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/lozione.corpo.esfoliante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Lozione Corpo Esfoliante">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/lozione.corpo.esfoliante.png</strong></span>
+                            <img src="img/lozione.corpo.esfoliante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Lozione Corpo Esfoliante">
                             <div class="overlay">AHA e BHA leviganti</div>
                         </div>
                     </div>
@@ -478,8 +474,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/crema.mani.protettiva.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Mani Protettiva">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/crema.mani.protettiva.png</strong></span>
+                            <img src="img/crema.mani.protettiva.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Crema Mani Protettiva">
                             <div class="overlay">Olio di macadamia e ceramidi</div>
                         </div>
                     </div>
@@ -497,8 +494,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/olio.viso.rigenerante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Olio Viso Rigenerante">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/olio.viso.rigenerante.png</strong></span>
+                            <img src="img/olio.viso.rigenerante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Olio Viso Rigenerante">
                             <div class="overlay">Rosa mosqueta e squalano</div>
                         </div>
                     </div>
@@ -516,8 +514,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/siero.niacinamide.10%25.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Siero Niacinamide 10%">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/siero.niacinamide.10%.png</strong></span>
+                            <img src="img/siero.niacinamide.10%25.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Siero Niacinamide 10%">
                             <div class="overlay">Controllo sebo e pori dilatati</div>
                         </div>
                     </div>
@@ -535,8 +534,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/detergente.oleoso.struccante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Detergente Oleoso Struccante">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/detergente.oleoso.struccante.png</strong></span>
+                            <img src="img/detergente.oleoso.struccante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Detergente Oleoso Struccante">
                             <div class="overlay">Prima fase doppia detersione</div>
                         </div>
                     </div>
@@ -554,8 +554,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/scrub.corpo.levigante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Scrub Corpo Levigante">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/scrub.corpo.levigante.png</strong></span>
+                            <img src="img/scrub.corpo.levigante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Scrub Corpo Levigante">
                             <div class="overlay">Sali del mar morto e agrumi</div>
                         </div>
                     </div>
@@ -573,8 +574,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/booster.vitamina.e.pura.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Booster Vitamina E Pura">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/booster.vitamina.e.pura.png</strong></span>
+                            <img src="img/booster.vitamina.e.pura.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Booster Vitamina E Pura">
                             <div class="overlay">Azione antiossidante intensiva</div>
                         </div>
                     </div>
@@ -592,8 +594,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/crema.collo.e.decollete.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Collo e Dècolletè">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/crema.collo.e.decollete.png</strong></span>
+                            <img src="img/crema.collo.e.decollete.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Crema Collo e Dècolletè">
                             <div class="overlay">Effetto lifting e rassodante</div>
                         </div>
                     </div>
@@ -611,8 +614,9 @@
             <article class="product-card">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/patch.occhi.idrogel.(set).png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Patch Occhi Idrogel (Set)">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1; text-align: center; font-size: 0.8rem; padding: 1rem;">📸 Istruzione foto<br>Nome: <strong>img/patch.occhi.idrogel.(set).png</strong></span>
+                            <img src="img/patch.occhi.idrogel.(set).png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" alt="Patch Occhi Idrogel (Set)">
                             <div class="overlay">Acido ialuronico e oro 24k</div>
                         </div>
                     </div>
@@ -655,30 +659,26 @@
     <!-- === LOGICA JAVASCRIPT (SANITIZZATA E RIGIDA) === -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
             // --- AUTOMATED ASSET AUTO-HEALING (GITHUB PAGES PATCH) ---
             const handleImageAssetFailures = () => {
                 const images = document.querySelectorAll('.product-img');
                 images.forEach(img => {
                     img.addEventListener('error', function errorHandler() {
                         const currentSrc = this.getAttribute('src');
+                        const attempts = parseInt(this.dataset.retryCount || '0', 10);
                         
-                        // Caso 1: Prova a convertire l'estensione in maiuscolo .PNG (Case-sensitivity Server Fix)
-                        if (currentSrc.endsWith('.png') && !this.dataset.triedUppercase) {
-                            this.dataset.triedUppercase = 'true';
-                            this.setAttribute('src', currentSrc.replace('.png', '.PNG'));
-                            return;
-                        }
+                        // Motore di scansione estensioni per aggirare la case-sensitivity e i mismatch
+                        const fallbackExtensions = ['.PNG', '.jpg', '.JPG', '.jpeg', '.webp'];
                         
-                        // Caso 2: Se fallisce anche il maiuscolo, rimuove l'icona rotta del browser e inietta un placeholder pulito
-                        this.removeEventListener('error', errorHandler);
-                        const parent = this.parentElement;
-                        this.style.display = 'none';
-                        
-                        if (!parent.querySelector('.fallback-placeholder')) {
-                            const placeholder = document.createElement('div');
-                            placeholder.className = 'fallback-placeholder';
-                            placeholder.textContent = this.getAttribute('alt') || 'AURA Product';
-                            parent.appendChild(placeholder);
+                        if (attempts < fallbackExtensions.length) {
+                            this.dataset.retryCount = attempts + 1;
+                            const newSrc = currentSrc.substring(0, currentSrc.lastIndexOf('.')) + fallbackExtensions[attempts];
+                            this.setAttribute('src', newSrc);
+                        } else {
+                            // Se falliscono tutti i tentativi, nasconde l'img rotta e lascia visibile il "Placeholder Virtuale" (z-index: 1)
+                            this.removeEventListener('error', errorHandler);
+                            this.style.display = 'none';
                         }
                     });
                 });
