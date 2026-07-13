@@ -66,7 +66,7 @@
         }
         .hero p { margin: 1.5rem auto; max-width: 600px; }
 
-        /* === VETRINA PRODOTTI (GRID DOGMA) === */
+        /* === VETRINA PRODOTTI (GRID DOGMA OTTIMIZZATO) === */
         .store-container {
             padding: 2rem 5%;
             max-width: 1400px;
@@ -74,8 +74,9 @@
         }
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
+            /* Patch: Previene overflow orizzontale su schermi micro (<320px) */
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            gap: 2rem;
         }
         .product-card {
             background: #fff;
@@ -89,10 +90,11 @@
         }
         .product-card:hover { transform: translateY(-5px); }
         
-        /* Contenitore Placeholder per rispettare la direttiva CSS */
+        /* Contenitore Placeholder (Altezza Fluida) */
         .image-wrapper {
             width: 100%;
-            height: 350px;
+            /* Patch: Altezza adattiva per evitare ingombro eccessivo su mobile */
+            height: clamp(250px, 50vw, 350px);
         }
 
         .product-info { padding: 1.5rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
@@ -329,6 +331,286 @@
                 </div>
             </article>
 
+            <!-- Prodotto 7 -->
+            <article class="product-card">
+                <a href="esfoliante_viso.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/esfoliante.jpg</strong></span>
+                            <img src="img/esfoliante.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Esfoliante Enzimatico">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Esfoliante Enzimatico Viso</h3>
+                        <p>Enzimi di papaia e ananas</p>
+                        <div class="product-price">€ 32.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p7" data-name="Esfoliante Enzimatico Viso" data-price="32.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 8 -->
+            <article class="product-card">
+                <a href="contorno_occhi.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/contorno_occhi.jpg</strong></span>
+                            <img src="img/contorno_occhi.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Contorno Occhi">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Crema Contorno Occhi</h3>
+                        <p>Caffeina e peptidi attivi</p>
+                        <div class="product-price">€ 48.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p8" data-name="Crema Contorno Occhi" data-price="48.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 9 -->
+            <article class="product-card">
+                <a href="siero_retinolo.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/retinolo.jpg</strong></span>
+                            <img src="img/retinolo.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Siero Retinolo">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Siero Retinolo Puro 1%</h3>
+                        <p>Trattamento notturno anti-età</p>
+                        <div class="product-price">€ 85.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p9" data-name="Siero Retinolo Puro 1%" data-price="85.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 10 -->
+            <article class="product-card">
+                <a href="essenza.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/essenza.jpg</strong></span>
+                            <img src="img/essenza.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Essenza Idratante">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Essenza Idratante Profonda</h3>
+                        <p>Estratto di loto e probiotici</p>
+                        <div class="product-price">€ 38.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p10" data-name="Essenza Idratante Profonda" data-price="38.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 11 -->
+            <article class="product-card">
+                <a href="balsamo_labbra.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/balsamo_labbra.jpg</strong></span>
+                            <img src="img/balsamo_labbra.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Balsamo Labbra">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Balsamo Labbra Riparatore</h3>
+                        <p>Burro di karité e cera d'api</p>
+                        <div class="product-price">€ 18.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p11" data-name="Balsamo Labbra Riparatore" data-price="18.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 12 -->
+            <article class="product-card">
+                <a href="lozione_corpo.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/lozione_corpo.jpg</strong></span>
+                            <img src="img/lozione_corpo.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Lozione Corpo">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Lozione Corpo Esfoliante</h3>
+                        <p>AHA e BHA leviganti</p>
+                        <div class="product-price">€ 36.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p12" data-name="Lozione Corpo Esfoliante" data-price="36.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 13 -->
+            <article class="product-card">
+                <a href="crema_mani.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/crema_mani.jpg</strong></span>
+                            <img src="img/crema_mani.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Mani">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Crema Mani Protettiva</h3>
+                        <p>Olio di macadamia e ceramidi</p>
+                        <div class="product-price">€ 24.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p13" data-name="Crema Mani Protettiva" data-price="24.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 14 -->
+            <article class="product-card">
+                <a href="olio_viso.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/olio_viso.jpg</strong></span>
+                            <img src="img/olio_viso.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Olio Viso">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Olio Viso Rigenerante</h3>
+                        <p>Rosa mosqueta e squalano</p>
+                        <div class="product-price">€ 55.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p14" data-name="Olio Viso Rigenerante" data-price="55.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 15 -->
+            <article class="product-card">
+                <a href="niacinamide.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/niacinamide.jpg</strong></span>
+                            <img src="img/niacinamide.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Siero Niacinamide">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Siero Niacinamide 10%</h3>
+                        <p>Controllo sebo e pori dilatati</p>
+                        <div class="product-price">€ 42.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p15" data-name="Siero Niacinamide 10%" data-price="42.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 16 -->
+            <article class="product-card">
+                <a href="detergente_oleoso.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/detergente_oleoso.jpg</strong></span>
+                            <img src="img/detergente_oleoso.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Detergente Oleoso">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Detergente Oleoso Struccante</h3>
+                        <p>Prima fase doppia detersione</p>
+                        <div class="product-price">€ 30.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p16" data-name="Detergente Oleoso Struccante" data-price="30.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 17 -->
+            <article class="product-card">
+                <a href="scrub_corpo.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/scrub_corpo.jpg</strong></span>
+                            <img src="img/scrub_corpo.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Scrub Corpo">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Scrub Corpo Levigante</h3>
+                        <p>Sali del mar morto e agrumi</p>
+                        <div class="product-price">€ 45.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p17" data-name="Scrub Corpo Levigante" data-price="45.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 18 -->
+            <article class="product-card">
+                <a href="vitamina_e.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/vitamina_e.jpg</strong></span>
+                            <img src="img/vitamina_e.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Booster Vitamina E">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Booster Vitamina E Pura</h3>
+                        <p>Azione antiossidante intensiva</p>
+                        <div class="product-price">€ 60.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p18" data-name="Booster Vitamina E Pura" data-price="60.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 19 -->
+            <article class="product-card">
+                <a href="crema_collo.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/crema_collo.jpg</strong></span>
+                            <img src="img/crema_collo.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Collo">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Crema Collo e Dècolletè</h3>
+                        <p>Effetto lifting e rassodante</p>
+                        <div class="product-price">€ 72.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p19" data-name="Crema Collo e Dècolletè" data-price="72.00">Aggiungi</button>
+                </div>
+            </article>
+
+            <!-- Prodotto 20 -->
+            <article class="product-card">
+                <a href="patch_occhi.html" class="card-link">
+                    <div class="image-wrapper">
+                        <div style="background: #222; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <span style="color: #666; z-index: 1;">📸 Istruzione foto<br>Nome: <strong>img/patch_occhi.jpg</strong></span>
+                            <img src="img/patch_occhi.jpg" loading="lazy" onerror="this.style.display='none'" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Patch Occhi">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Patch Occhi Idrogel (Set)</h3>
+                        <p>Acido ialuronico e oro 24k</p>
+                        <div class="product-price">€ 26.00</div>
+                    </div>
+                </a>
+                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                    <button class="add-to-cart" data-id="p20" data-name="Patch Occhi Idrogel (Set)" data-price="26.00">Aggiungi</button>
+                </div>
+            </article>
+
         </div>
     </main>
 
@@ -431,7 +713,7 @@
                         itemRow.className = 'cart-item';
 
                         const infoWrapper = document.createElement('div');
-                        // PATCH APPLICATA: Incolonnamento flessibile per responsive design
+                        // Incolonnamento flessibile per responsive design
                         infoWrapper.style.display = 'flex';
                         infoWrapper.style.flexDirection = 'column';
                         infoWrapper.style.gap = '0.3rem';
