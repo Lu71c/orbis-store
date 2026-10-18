@@ -2,782 +2,746 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA - Premium Skincare & Aesthetics</title>
-    <style>
-        /* === RESET E NORMALIZZAZIONE === */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            overflow-x: hidden; 
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #faf9f8;
-            color: #333;
-        }
-        a { text-decoration: none; color: inherit; }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>AURA | Premium Skincare &amp; Aesthetics</title>
+    <meta name="description" content="AURA - Trattamenti botanici avanzati per la cura della pelle. Formulazioni pure, dermatologicamente testate, per un rituale di bellezza quotidiano.">
 
-        /* === TIPOGRAFIA FLUIDA === */
-        h1 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; letter-spacing: 2px; }
-        h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 300; }
-        h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 400; }
-        p { font-size: clamp(0.9rem, 1.5vw, 1.1rem); line-height: 1.6; color: #666; }
+    <!-- Tipografia Google Fonts (Inter + Cormorant Garamond per un tono luxury/skincare) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        /* === HEADER & NAV === */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 5%;
-            background: rgba(255, 255, 255, 0.95);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #eee;
-        }
-        .logo { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: bold; letter-spacing: 3px; text-transform: uppercase; }
-        
-        .cart-toggle {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .cart-count {
-            background: #222;
-            color: #fff;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-        }
-
-        /* === HERO SECTION === */
-        .hero {
-            text-align: center;
-            padding: 10rem 5%;
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55)), url('img/aura.hero.png') center/cover no-repeat;
-            margin-bottom: 3rem;
-        }
-        .hero h1 { color: #fff; text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4); }
-        .hero p { margin: 1.5rem auto; max-width: 600px; color: #f5f5f5; font-weight: 300; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4); }
-
-        /* === VETRINA PRODOTTI (GRID DOGMA) === */
-        .store-container {
-            padding: 2rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-            gap: 2rem;
-        }
-        .product-card {
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-        .product-card:hover { transform: translateY(-5px); }
-        
-        .image-wrapper {
-            width: 100%;
-            height: clamp(250px, 50vw, 350px);
-            position: relative;
-        }
-
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.65);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            padding: 1.5rem;
-            text-align: center;
-            font-size: clamp(1rem, 1.5vw, 1.2rem);
-            font-weight: 300;
-            z-index: 2;
-        }
-        .product-card:hover .overlay {
-            opacity: 1;
-        }
-
-        .product-info { padding: 1.5rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-price { font-weight: bold; color: #222; margin: 1rem 0; font-size: 1.2rem; }
-        
-        .card-content {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        button.add-to-cart {
-            background: #222;
-            color: #fff;
-            border: none;
-            padding: 1rem;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: auto;
-            position: relative;
-            z-index: 3;
-        }
-        button.add-to-cart:hover { background: #555; }
-
-        /* === CARRELLO LATERALE (OTTIMIZZATO GPU) === */
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            max-width: 400px;
-            height: 100vh;
-            background: #fff;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            z-index: 999;
-            transform: translateX(100%);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            will-change: transform;
-        }
-        .cart-sidebar.open { transform: translateX(0); }
-        .cart-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .close-cart { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
-        
-        .cart-items {
-            padding: 1.5rem;
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #f5f5f5;
-        }
-        .remove-btn {
-            background: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: background 0.2s;
-        }
-        .remove-btn:hover { background: #cc0000; }
-        
-        .cart-footer { padding: 1.5rem; border-top: 1px solid #eee; background: #faf9f8; }
-        .cart-total-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
-        .checkout-btn {
-            background: #222;
-            color: #fff;
-            border: none;
-            padding: 1rem;
-            width: 100%;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        /* === FOOTER === */
-        footer { background: #222; color: #fff; text-align: center; padding: 3rem 5%; margin-top: 4rem; }
-    </style>
+    <!-- Foglio di Stile Esterno -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- === INIZIO SEZIONE HEADER === -->
-    <header>
-        <div class="logo">AURA</div>
-        <button class="cart-toggle" id="openCartBtn">
-            Carrello 
-            <span class="cart-count" id="cartCount">0</span>
-        </button>
+    <!-- ======================================================================
+         1. ANNOUNCEMENT BAR (Spedizioni e Valori)
+         ====================================================================== -->
+    <div class="announcement-bar">
+        <span>Spedizione espressa gratuita per ordini superiori a € 50 &bull; Consegna in 24/48h</span>
+    </div>
+
+    <!-- ======================================================================
+         2. HEADER & NAVIGAZIONE (Desktop & Mobile)
+         ====================================================================== -->
+    <header id="mainHeader">
+        <div class="header-left">
+            <button class="hamburger-btn" id="openMobileNav" aria-label="Menu di navigazione">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <nav class="desktop-nav">
+                <a href="#prodotti" class="nav-link">Collezione</a>
+                <a href="#valori" class="nav-link">Filosofia</a>
+                <a href="#" class="nav-link open-info-trigger" data-modal="ingredienti">Ingredienti</a>
+                <a href="#" class="nav-link open-info-trigger" data-modal="contatti">Assistenza</a>
+            </nav>
+        </div>
+
+        <a href="#" class="logo">AU<span>R</span>A</a>
+
+        <div class="header-right">
+            <button class="cart-toggle" id="openCartBtn" aria-label="Apri Carrello">
+                <span class="cart-label">Carrello</span>
+                <span class="cart-icon">🛍️</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
     </header>
 
-    <!-- === INIZIO SEZIONE HERO === -->
+    <!-- Drawer Navigazione Mobile -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <span class="drawer-title">Menu AURA</span>
+            <button class="close-drawer" id="closeMobileNav" aria-label="Chiudi menu">&times;</button>
+        </div>
+        <nav class="drawer-links">
+            <a href="#prodotti" class="mobile-nav-link">Tutti i Prodotti</a>
+            <a href="#valori" class="mobile-nav-link">I Nostri Valori</a>
+            <a href="#" class="mobile-nav-link open-info-trigger" data-modal="ingredienti">I Nostri Principi Attivi</a>
+            <a href="#" class="mobile-nav-link open-info-trigger" data-modal="spedizioni">Spedizioni &amp; Resi</a>
+            <a href="#" class="mobile-nav-link open-info-trigger" data-modal="contatti">Contatti &amp; Boutique</a>
+        </nav>
+        <div class="drawer-footer">
+            <p>AURA Clean Aesthetics &bull; Roma &bull; Milano</p>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         3. HERO PRINCIPALE
+         ====================================================================== -->
     <section class="hero">
-        <h1>Rituale di Bellezza</h1>
-        <p>Formulazioni botaniche avanzate per rigenerare, illuminare e proteggere la tua pelle. Simulazione Store Interattivo ad alte prestazioni.</p>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-tag">Rituale Botanico Essenziale</span>
+            <h1>L'armonia della pelle autentica.</h1>
+            <p>Formulazioni pulite, estratti botanici purissimi e attivi biotecnologici brevettati per preservare e risvegliare la luminosità naturale del tuo viso.</p>
+            <div class="hero-actions">
+                <a href="#prodotti" class="btn-primary">Scopri il Catalogo</a>
+                <a href="#valori" class="btn-secondary">La Nostra Etica</a>
+            </div>
+        </div>
     </section>
 
-    <!-- === INIZIO SEZIONE PRODOTTI === -->
-    <main class="store-container">
-        <div class="product-grid">
+    <!-- ======================================================================
+         4. VETRINA PRODOTTI CON RICERCA E CATEGORIE
+         ====================================================================== -->
+    <main class="store-container" id="prodotti">
+        
+        <!-- Intestazione e Controlli E-commerce -->
+        <div class="store-header">
+            <div class="store-intro">
+                <span class="section-tag">Catalogo Esclusivo</span>
+                <h2>La Collezione Trattamenti</h2>
+                <p>20 formule studiate per integrarsi sinergicamente nella tua routine quotidiana.</p>
+            </div>
+
+            <!-- Barra di Ricerca Live -->
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="storeSearch" placeholder="Cerca prodotto, principio attivo o texture (es. Retinolo, Vitamina C)..." aria-label="Cerca prodotti">
+                <button id="clearSearch" class="clear-search-btn hidden" aria-label="Cancella ricerca">&times;</button>
+            </div>
+
+            <!-- Filtri a Pillola per Categoria -->
+            <div class="category-filters" id="categoryFilters">
+                <button class="filter-pill active" data-filter="all">Tutti (20)</button>
+                <button class="filter-pill" data-filter="detersione">Detersione &amp; Prep</button>
+                <button class="filter-pill" data-filter="sieri">Sieri &amp; Booster</button>
+                <button class="filter-pill" data-filter="viso">Creme &amp; Viso</button>
+                <button class="filter-pill" data-filter="corpo">Corpo &amp; Mani</button>
+            </div>
+        </div>
+
+        <!-- Messaggio Nessun Risultato (Nascosto di default) -->
+        <div id="noResults" class="no-results-box hidden">
+            <p>Nessun trattamento trovato per i criteri selezionati.</p>
+            <button class="btn-secondary reset-filters-btn" id="resetFiltersBtn">Mostra tutti i prodotti</button>
+        </div>
+
+        <!-- Griglia Prodotti (20 Articoli Completi con Lazy Load e Async Decoding) -->
+        <div class="product-grid" id="productGrid">
             
-            <!-- Prodotto 1 -->
-            <article class="product-card">
+            <!-- 1. Siero Illuminante -->
+            <article class="product-card" data-category="sieri" data-name="Siero Illuminante" data-actives="Vitamina C Acido Ialuronico">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/siero.illuminante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Siero Illuminante">
-                            <div class="overlay">Vitamina C & Acido Ialuronico</div>
-                        </div>
+                        <img src="img/siero.illuminante.png" class="product-img" loading="lazy" decoding="async" alt="Siero Illuminante AURA">
+                        <div class="overlay">Vitamina C &amp; Acido Ialuronico</div>
+                        <span class="product-badge">Best Seller</span>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Siero Concentrato</span>
                         <h3>Siero Illuminante</h3>
+                        <p class="product-desc-snippet">Uniforma l'incarnato e contrasta lo stress ossidativo quotidiano.</p>
                         <div class="product-price">€ 45.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p1" data-name="Siero Illuminante" data-price="45.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p1" data-name="Siero Illuminante" data-price="45.00" data-img="img/siero.illuminante.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 2 -->
-            <article class="product-card">
+            <!-- 2. Crema Rigenerante Notte -->
+            <article class="product-card" data-category="viso" data-name="Crema Rigenerante Notte" data-actives="Retinolo Botanico Estratti Rari">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/crema.rigenerante.notte.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Rigenerante Notte">
-                            <div class="overlay">Estratti botanici rari e retinolo</div>
-                        </div>
+                        <img src="img/crema.rigenerante.notte.png" class="product-img" loading="lazy" decoding="async" alt="Crema Rigenerante Notte AURA">
+                        <div class="overlay">Estratti botanici rari e retinolo</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Trattamento Notturno</span>
                         <h3>Crema Rigenerante Notte</h3>
+                        <p class="product-desc-snippet">Azione riparatrice profonda con rilascio graduale durante il sonno.</p>
                         <div class="product-price">€ 68.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p2" data-name="Crema Rigenerante Notte" data-price="68.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p2" data-name="Crema Rigenerante Notte" data-price="68.00" data-img="img/crema.rigenerante.notte.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 3 -->
-            <article class="product-card">
+            <!-- 3. Detergente Purificante -->
+            <article class="product-card" data-category="detersione" data-name="Detergente Purificante" data-actives="Argilla Bianca Te Verde">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/detergente.purificante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Detergente Purificante">
-                            <div class="overlay">Argilla bianca e tè verde</div>
-                        </div>
+                        <img src="img/detergente.purificante.png" class="product-img" loading="lazy" decoding="async" alt="Detergente Purificante AURA">
+                        <div class="overlay">Argilla bianca e tè verde</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Detersione Delicata</span>
                         <h3>Detergente Purificante</h3>
+                        <p class="product-desc-snippet">Deterge senza intaccare la barriera idrolipidica cutanea.</p>
                         <div class="product-price">€ 28.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p3" data-name="Detergente Purificante" data-price="28.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p3" data-name="Detergente Purificante" data-price="28.00" data-img="img/detergente.purificante.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 4 -->
-            <article class="product-card">
+            <!-- 4. Tonico Riequilibrante -->
+            <article class="product-card" data-category="detersione" data-name="Tonico Riequilibrante" data-actives="Acqua di Rose Amamelide">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/tonico.riequilibrante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Tonico Riequilibrante">
-                            <div class="overlay">Acqua di rose e amamelide</div>
-                        </div>
+                        <img src="img/tonico.riequilibrante.png" class="product-img" loading="lazy" decoding="async" alt="Tonico Riequilibrante AURA">
+                        <div class="overlay">Acqua di rose e amamelide</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Preparazione Cutanea</span>
                         <h3>Tonico Riequilibrante</h3>
+                        <p class="product-desc-snippet">Ristabilisce il pH ottimale e affina la grana dei pori.</p>
                         <div class="product-price">€ 22.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p4" data-name="Tonico Riequilibrante" data-price="22.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p4" data-name="Tonico Riequilibrante" data-price="22.00" data-img="img/tonico.riequilibrante.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 5 -->
-            <article class="product-card">
+            <!-- 5. Maschera Detox Argilla -->
+            <article class="product-card" data-category="viso" data-name="Maschera Detox Argilla" data-actives="Argilla Vulcanica Carbone Attivo">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/maschera.detox.argilla.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Maschera Detox Argilla">
-                            <div class="overlay">Argilla vulcanica e carbone</div>
-                        </div>
+                        <img src="img/maschera.detox.argilla.png" class="product-img" loading="lazy" decoding="async" alt="Maschera Detox Argilla AURA">
+                        <div class="overlay">Argilla vulcanica e carbone</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Trattamento Settimanale</span>
                         <h3>Maschera Detox Argilla</h3>
+                        <p class="product-desc-snippet">Purifica in profondità catturando le micro-particelle inquinanti.</p>
                         <div class="product-price">€ 35.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p5" data-name="Maschera Detox Argilla" data-price="35.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p5" data-name="Maschera Detox Argilla" data-price="35.00" data-img="img/maschera.detox.argilla.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 6 -->
-            <article class="product-card">
+            <!-- 6. Olio Corpo Vellutante -->
+            <article class="product-card" data-category="corpo" data-name="Olio Corpo Vellutante" data-actives="Mandorle Dolci Jojoba">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/olio.corpo.vellutante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Olio Corpo Vellutante">
-                            <div class="overlay">Mandorle dolci e jojoba</div>
-                        </div>
+                        <img src="img/olio.corpo.vellutante.png" class="product-img" loading="lazy" decoding="async" alt="Olio Corpo Vellutante AURA">
+                        <div class="overlay">Mandorle dolci e jojoba</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Cura del Corpo</span>
                         <h3>Olio Corpo Vellutante</h3>
+                        <p class="product-desc-snippet">Nutrimento satinato a rapido assorbimento senza effetto unto.</p>
                         <div class="product-price">€ 40.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p6" data-name="Olio Corpo Vellutante" data-price="40.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p6" data-name="Olio Corpo Vellutante" data-price="40.00" data-img="img/olio.corpo.vellutante.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 7 -->
-            <article class="product-card">
+            <!-- 7. Esfoliante Enzimatico Viso -->
+            <article class="product-card" data-category="detersione" data-name="Esfoliante Enzimatico Viso" data-actives="Enzimi Papaia Ananas">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/esfoliante.enzimatico.viso.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Esfoliante Enzimatico Viso">
-                            <div class="overlay">Enzimi di papaia e ananas</div>
-                        </div>
+                        <img src="img/esfoliante.enzimatico.viso.png" class="product-img" loading="lazy" decoding="async" alt="Esfoliante Enzimatico Viso AURA">
+                        <div class="overlay">Enzimi di papaia e ananas</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Rinnovamento Delicato</span>
                         <h3>Esfoliante Enzimatico Viso</h3>
+                        <p class="product-desc-snippet">Elimina le cellule morte senza sfregamento meccanico aggressivo.</p>
                         <div class="product-price">€ 32.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p7" data-name="Esfoliante Enzimatico Viso" data-price="32.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p7" data-name="Esfoliante Enzimatico Viso" data-price="32.00" data-img="img/esfoliante.enzimatico.viso.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 8 -->
-            <article class="product-card">
+            <!-- 8. Crema Contorno Occhi -->
+            <article class="product-card" data-category="viso" data-name="Crema Contorno Occhi" data-actives="Caffeina Peptidi Attivi">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/crema.contorno.occhi.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Contorno Occhi">
-                            <div class="overlay">Caffeina e peptidi attivi</div>
-                        </div>
+                        <img src="img/crema.contorno.occhi.png" class="product-img" loading="lazy" decoding="async" alt="Crema Contorno Occhi AURA">
+                        <div class="overlay">Caffeina e peptidi attivi</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Sguardo &amp; Borse</span>
                         <h3>Crema Contorno Occhi</h3>
+                        <p class="product-desc-snippet">Drena borse e occhiaie donando freschezza istantanea allo sguardo.</p>
                         <div class="product-price">€ 48.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p8" data-name="Crema Contorno Occhi" data-price="48.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p8" data-name="Crema Contorno Occhi" data-price="48.00" data-img="img/crema.contorno.occhi.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 9 -->
-            <article class="product-card">
+            <!-- 9. Siero Retinolo Puro 1% -->
+            <article class="product-card" data-category="sieri" data-name="Siero Retinolo Puro 1%" data-actives="Retinolo Anti-eta Rigenerazione">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/siero.retinolo.puro.1%25.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Siero Retinolo Puro 1%">
-                            <div class="overlay">Trattamento notturno anti-età</div>
-                        </div>
+                        <img src="img/siero.retinolo.puro.1%25.png" class="product-img" loading="lazy" decoding="async" alt="Siero Retinolo Puro 1% AURA">
+                        <div class="overlay">Trattamento notturno anti-età</div>
+                        <span class="product-badge accent">Formula Pro</span>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Rigenerazione Intensa</span>
                         <h3>Siero Retinolo Puro 1%</h3>
+                        <p class="product-desc-snippet">Stimola il turnover cellulare e riduce rughe e discromie evidenti.</p>
                         <div class="product-price">€ 85.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p9" data-name="Siero Retinolo Puro 1%" data-price="85.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p9" data-name="Siero Retinolo Puro 1%" data-price="85.00" data-img="img/siero.retinolo.puro.1%25.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 10 -->
-            <article class="product-card">
+            <!-- 10. Essenza Idratante Profonda -->
+            <article class="product-card" data-category="sieri" data-name="Essenza Idratante Profonda" data-actives="Estratto di Loto Probiotici">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/essenza.idratante.profonda.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Essenza Idratante Profonda">
-                            <div class="overlay">Estratto di loto e probiotici</div>
-                        </div>
+                        <img src="img/essenza.idratante.profonda.png" class="product-img" loading="lazy" decoding="async" alt="Essenza Idratante Profonda AURA">
+                        <div class="overlay">Estratto di loto e probiotici</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Idratazione Attiva</span>
                         <h3>Essenza Idratante Profonda</h3>
+                        <p class="product-desc-snippet">Fortifica il microbioma cutaneo favorendo l'assorbimento dei trattamenti.</p>
                         <div class="product-price">€ 38.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p10" data-name="Essenza Idratante Profonda" data-price="38.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p10" data-name="Essenza Idratante Profonda" data-price="38.00" data-img="img/essenza.idratante.profonda.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 11 -->
-            <article class="product-card">
+            <!-- 11. Balsamo Labbra Riparatore -->
+            <article class="product-card" data-category="viso" data-name="Balsamo Labbra Riparatore" data-actives="Burro di Karite Cera d'Api">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/balsamo.labbra.riparatore.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Balsamo Labbra Riparatore">
-                            <div class="overlay">Burro di karité e cera d'api</div>
-                        </div>
+                        <img src="img/balsamo.labbra.riparatore.png" class="product-img" loading="lazy" decoding="async" alt="Balsamo Labbra Riparatore AURA">
+                        <div class="overlay">Burro di karité e cera d'api</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Trattamento Labbra</span>
                         <h3>Balsamo Labbra Riparatore</h3>
+                        <p class="product-desc-snippet">Lenisce screpolature e protegge dagli agenti atmosferici avversi.</p>
                         <div class="product-price">€ 18.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p11" data-name="Balsamo Labbra Riparatore" data-price="18.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p11" data-name="Balsamo Labbra Riparatore" data-price="18.00" data-img="img/balsamo.labbra.riparatore.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 12 -->
-            <article class="product-card">
+            <!-- 12. Lozione Corpo Esfoliante -->
+            <article class="product-card" data-category="corpo" data-name="Lozione Corpo Esfoliante" data-actives="AHA BHA Acido Salicilico">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/lozione.corpo.esfoliante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Lozione Corpo Esfoliante">
-                            <div class="overlay">AHA e BHA leviganti</div>
-                        </div>
+                        <img src="img/lozione.corpo.esfoliante.png" class="product-img" loading="lazy" decoding="async" alt="Lozione Corpo Esfoliante AURA">
+                        <div class="overlay">AHA e BHA leviganti</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Texture Cutanea</span>
                         <h3>Lozione Corpo Esfoliante</h3>
+                        <p class="product-desc-snippet">Leviga rugosità e peli incarniti per una pelle morbida come seta.</p>
                         <div class="product-price">€ 36.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p12" data-name="Lozione Corpo Esfoliante" data-price="36.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p12" data-name="Lozione Corpo Esfoliante" data-price="36.00" data-img="img/lozione.corpo.esfoliante.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 13 -->
-            <article class="product-card">
+            <!-- 13. Crema Mani Protettiva -->
+            <article class="product-card" data-category="corpo" data-name="Crema Mani Protettiva" data-actives="Olio di Macadamia Ceramidi">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/crema.mani.protettiva.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Mani Protettiva">
-                            <div class="overlay">Olio di macadamia e ceramidi</div>
-                        </div>
+                        <img src="img/crema.mani.protettiva.png" class="product-img" loading="lazy" decoding="async" alt="Crema Mani Protettiva AURA">
+                        <div class="overlay">Olio di macadamia e ceramidi</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Barriera Protettiva</span>
                         <h3>Crema Mani Protettiva</h3>
+                        <p class="product-desc-snippet">Scudo invisibile contro lavaggi frequenti e disidratazione.</p>
                         <div class="product-price">€ 24.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p13" data-name="Crema Mani Protettiva" data-price="24.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p13" data-name="Crema Mani Protettiva" data-price="24.00" data-img="img/crema.mani.protettiva.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 14 -->
-            <article class="product-card">
+            <!-- 14. Olio Viso Rigenerante -->
+            <article class="product-card" data-category="sieri" data-name="Olio Viso Rigenerante" data-actives="Rosa Mosqueta Squalano">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/olio.viso.rigenerante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Olio Viso Rigenerante">
-                            <div class="overlay">Rosa mosqueta e squalano</div>
-                        </div>
+                        <img src="img/olio.viso.rigenerante.png" class="product-img" loading="lazy" decoding="async" alt="Olio Viso Rigenerante AURA">
+                        <div class="overlay">Rosa mosqueta e squalano</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Elixir Viso</span>
                         <h3>Olio Viso Rigenerante</h3>
+                        <p class="product-desc-snippet">Gocce preziose di lipidi vegetali per illuminare le pelli secche o spente.</p>
                         <div class="product-price">€ 55.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p14" data-name="Olio Viso Rigenerante" data-price="55.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p14" data-name="Olio Viso Rigenerante" data-price="55.00" data-img="img/olio.viso.rigenerante.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 15 -->
-            <article class="product-card">
+            <!-- 15. Siero Niacinamide 10% -->
+            <article class="product-card" data-category="sieri" data-name="Siero Niacinamide 10%" data-actives="Niacinamide Zinco Pori Sebo">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/siero.niacinamide.10%25.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Siero Niacinamide 10%">
-                            <div class="overlay">Controllo sebo e pori dilatati</div>
-                        </div>
+                        <img src="img/siero.niacinamide.10%25.png" class="product-img" loading="lazy" decoding="async" alt="Siero Niacinamide 10% AURA">
+                        <div class="overlay">Controllo sebo e pori dilatati</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Equilibrio Impurezze</span>
                         <h3>Siero Niacinamide 10%</h3>
+                        <p class="product-desc-snippet">Regolarizza la produzione sebacea attenuando rossori e lucidità.</p>
                         <div class="product-price">€ 42.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p15" data-name="Siero Niacinamide 10%" data-price="42.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p15" data-name="Siero Niacinamide 10%" data-price="42.00" data-img="img/siero.niacinamide.10%25.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 16 -->
-            <article class="product-card">
+            <!-- 16. Detergente Oleoso Struccante -->
+            <article class="product-card" data-category="detersione" data-name="Detergente Oleoso Struccante" data-actives="Olio Riso Camelia Doppia Detersione">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/detergente.oleoso.struccante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Detergente Oleoso Struccante">
-                            <div class="overlay">Prima fase doppia detersione</div>
-                        </div>
+                        <img src="img/detergente.oleoso.struccante.png" class="product-img" loading="lazy" decoding="async" alt="Detergente Oleoso Struccante AURA">
+                        <div class="overlay">Prima fase doppia detersione</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Doppia Detersione</span>
                         <h3>Detergente Oleoso Struccante</h3>
+                        <p class="product-desc-snippet">Scioglie trucco waterproof e filtri solari trasformandosi in latte.</p>
                         <div class="product-price">€ 30.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p16" data-name="Detergente Oleoso Struccante" data-price="30.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p16" data-name="Detergente Oleoso Struccante" data-price="30.00" data-img="img/detergente.oleoso.struccante.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 17 -->
-            <article class="product-card">
+            <!-- 17. Scrub Corpo Levigante -->
+            <article class="product-card" data-category="corpo" data-name="Scrub Corpo Levigante" data-actives="Sali Mar Morto Agrumi">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/scrub.corpo.levigante.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Scrub Corpo Levigante">
-                            <div class="overlay">Sali del mar morto e agrumi</div>
-                        </div>
+                        <img src="img/scrub.corpo.levigante.png" class="product-img" loading="lazy" decoding="async" alt="Scrub Corpo Levigante AURA">
+                        <div class="overlay">Sali del mar morto e agrumi</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Esfoliazione Corpo</span>
                         <h3>Scrub Corpo Levigante</h3>
+                        <p class="product-desc-snippet">Cristalli marini imbevuti di oli essenziali per riattivare il microcircolo.</p>
                         <div class="product-price">€ 45.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p17" data-name="Scrub Corpo Levigante" data-price="45.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p17" data-name="Scrub Corpo Levigante" data-price="45.00" data-img="img/scrub.corpo.levigante.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 18 -->
-            <article class="product-card">
+            <!-- 18. Booster Vitamina E Pura -->
+            <article class="product-card" data-category="sieri" data-name="Booster Vitamina E Pura" data-actives="Tocoferolo Antiossidante Barriera">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/booster.vitamina.e.pura.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Booster Vitamina E Pura">
-                            <div class="overlay">Azione antiossidante intensiva</div>
-                        </div>
+                        <img src="img/booster.vitamina.e.pura.png" class="product-img" loading="lazy" decoding="async" alt="Booster Vitamina E Pura AURA">
+                        <div class="overlay">Azione antiossidante intensiva</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Booster Concentrato</span>
                         <h3>Booster Vitamina E Pura</h3>
+                        <p class="product-desc-snippet">Difesa intensiva da mescolare alla crema giorno o applicare puro.</p>
                         <div class="product-price">€ 60.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p18" data-name="Booster Vitamina E Pura" data-price="60.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p18" data-name="Booster Vitamina E Pura" data-price="60.00" data-img="img/booster.vitamina.e.pura.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 19 -->
-            <article class="product-card">
+            <!-- 19. Crema Collo e Décolleté -->
+            <article class="product-card" data-category="corpo" data-name="Crema Collo e Décolleté" data-actives="Lifting Peptidi Rassodante">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/crema.collo.e.decollete.png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Crema Collo e Dècolletè">
-                            <div class="overlay">Effetto lifting e rassodante</div>
-                        </div>
+                        <img src="img/crema.collo.e.decollete.png" class="product-img" loading="lazy" decoding="async" alt="Crema Collo e Décolleté AURA">
+                        <div class="overlay">Effetto lifting e rassodante</div>
                     </div>
                     <div class="product-info">
-                        <h3>Crema Collo e Dècolletè</h3>
+                        <span class="product-cat-label">Trattamento Specifico</span>
+                        <h3>Crema Collo e Décolleté</h3>
+                        <p class="product-desc-snippet">Contrasta il rilassamento cutaneo e le linee orizzontali del collo.</p>
                         <div class="product-price">€ 72.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p19" data-name="Crema Collo e Dècolletè" data-price="72.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p19" data-name="Crema Collo e Décolleté" data-price="72.00" data-img="img/crema.collo.e.decollete.png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
-            <!-- Prodotto 20 -->
-            <article class="product-card">
+            <!-- 20. Patch Occhi Idrogel (Set) -->
+            <article class="product-card" data-category="viso" data-name="Patch Occhi Idrogel (Set)" data-actives="Acido Ialuronico Oro 24K Idrogel">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <div style="background: #f4f0eb; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100%;">
-                            <img src="img/patch.occhi.idrogel.(set).png" class="product-img" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;" alt="Patch Occhi Idrogel (Set)">
-                            <div class="overlay">Acido ialuronico e oro 24k</div>
-                        </div>
+                        <img src="img/patch.occhi.idrogel.(set).png" class="product-img" loading="lazy" decoding="async" alt="Patch Occhi Idrogel Set AURA">
+                        <div class="overlay">Acido ialuronico e oro 24k</div>
                     </div>
                     <div class="product-info">
+                        <span class="product-cat-label">Patch Monodose</span>
                         <h3>Patch Occhi Idrogel (Set)</h3>
+                        <p class="product-desc-snippet">Trattamento flash defaticante per un risveglio immediato dello sguardo.</p>
                         <div class="product-price">€ 26.00</div>
                     </div>
                 </div>
-                <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-                    <button class="add-to-cart" data-id="p20" data-name="Patch Occhi Idrogel (Set)" data-price="26.00">Aggiungi</button>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="p20" data-name="Patch Occhi Idrogel (Set)" data-price="26.00" data-img="img/patch.occhi.idrogel.(set).png">Aggiungi al Carrello</button>
                 </div>
             </article>
 
         </div>
     </main>
 
-    <!-- === INIZIO SEZIONE CARRELLO (SIDEBAR) === -->
-    <aside class="cart-sidebar" id="cartSidebar">
+    <!-- ======================================================================
+         5. SEZIONE VALORI & FILOSOFIA DI BRAND
+         ====================================================================== -->
+    <section class="brand-values-section" id="valori">
+        <div class="values-header">
+            <span class="section-tag">I Nostri Standard</span>
+            <h2>La promessa di formulazione AURA</h2>
+            <p>Non crediamo nei compromessi tra sicurezza dermatologica e rispetto ambientale.</p>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🌿</div>
+                <h3>100% Clean Formulation</h3>
+                <p>Niente parabeni, siliconi sintetici, fragranze artificiali o solfati. Solo principi attivi biodisponibili e tracciabili.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🐰</div>
+                <h3>Cruelty-Free &amp; Vegan</h3>
+                <p>Certificati e mai testati su animali in alcuna fase della filiera. Rispetto totale per la biodiversità del pianeta.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">♻️</div>
+                <h3>Packaging a Impatto Zero</h3>
+                <p>Flaconi in vetro ambrato riciclato per preservare i principi attivi fotosensibili e imballaggi compostabili certificati.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         6. CARRELLO LATERALE POTENZIATO (+ e - quantità)
+         ====================================================================== -->
+    <div class="cart-backdrop" id="cartBackdrop"></div>
+    <aside class="cart-sidebar" id="cartSidebar" aria-label="Carrello della spesa">
         <div class="cart-header">
-            <h3>Il tuo Carrello</h3>
-            <button class="close-cart" id="closeCartBtn">×</button>
+            <div class="cart-title-wrapper">
+                <h3>Il tuo Carrello</h3>
+                <span class="cart-items-indicator" id="cartItemsIndicator">(0 articoli)</span>
+            </div>
+            <button class="close-cart" id="closeCartBtn" aria-label="Chiudi Carrello">&times;</button>
         </div>
+
+        <!-- Banner Spedizione Gratuita nel carrello -->
+        <div class="free-shipping-progress" id="freeShippingBanner">
+            <p id="shippingStatusText">Aggiungi € 50.00 per la <strong>Spedizione Gratuita</strong></p>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="shippingProgressBar" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Lista Articoli Carrello -->
         <div class="cart-items" id="cartItemsContainer">
-            <!-- Gli elementi verranno iniettati via JS (.textContent) -->
+            <!-- Popolato dinamicamente da store.js -->
         </div>
+
+        <!-- Footer Carrello con Riepilogo e Checkout -->
         <div class="cart-footer">
+            <div class="cart-subtotal-row">
+                <span>Subtotale</span>
+                <span id="cartSubtotalUI">€ 0.00</span>
+            </div>
+            <div class="cart-subtotal-row shipping-row">
+                <span>Spedizione</span>
+                <span id="cartShippingUI">Calcolata al checkout</span>
+            </div>
             <div class="cart-total-row">
-                <span>Totale:</span>
+                <span>Totale Ordine</span>
                 <span id="cartTotalUI">€ 0.00</span>
             </div>
-            <button class="checkout-btn" id="checkoutBtn">Procedi al Checkout</button>
+            <button class="checkout-btn" id="openCheckoutBtn">Procedi al Checkout</button>
+            <p class="secure-checkout-hint">🔒 Pagamenti cifrati SSL a 256-bit &bull; Reso facile entro 30 giorni</p>
         </div>
     </aside>
 
-    <!-- === INIZIO SEZIONE FOOTER === -->
+    <!-- ======================================================================
+         7. MODALE CHECKOUT REALISTICO (DATI + METODO PAGAMENTO)
+         ====================================================================== -->
+    <div class="modal-backdrop" id="checkoutModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <button class="modal-close" id="closeCheckoutBtn" aria-label="Chiudi checkout">&times;</button>
+            
+            <div id="checkoutFormStep">
+                <div class="modal-header">
+                    <span class="section-tag">Checkout Sicuro</span>
+                    <h2>Completa il tuo Ordine</h2>
+                    <p>Inserisci i dati per la spedizione e seleziona il metodo di pagamento preferito.</p>
+                </div>
+
+                <form id="checkoutForm" class="checkout-form">
+                    <div class="form-section-title">1. Informazioni di Spedizione</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="orderName">Nome e Cognome *</label>
+                            <input type="text" id="orderName" placeholder="Es. Laura Rossi" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderEmail">Email *</label>
+                            <input type="email" id="orderEmail" placeholder="laura.rossi@email.it" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="orderAddress">Indirizzo e N. Civico *</label>
+                            <input type="text" id="orderAddress" placeholder="Via Condotti, 12" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderCity">Città e CAP *</label>
+                            <input type="text" id="orderCity" placeholder="Roma, 00187" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section-title">2. Metodo di Pagamento</div>
+                    <div class="payment-methods-grid">
+                        <label class="payment-radio-label active">
+                            <input type="radio" name="paymentMethod" value="Carta di Credito" checked>
+                            <span class="payment-box">
+                                <span class="payment-icon">💳</span>
+                                <strong>Carta di Credito</strong>
+                                <small>Visa, Mastercard, Amex</small>
+                            </span>
+                        </label>
+                        <label class="payment-radio-label">
+                            <input type="radio" name="paymentMethod" value="PayPal">
+                            <span class="payment-box">
+                                <span class="payment-icon">🅿️</span>
+                                <strong>PayPal</strong>
+                                <small>Transazione Immediata</small>
+                            </span>
+                        </label>
+                        <label class="payment-radio-label">
+                            <input type="radio" name="paymentMethod" value="Apple Pay / Google Pay">
+                            <span class="payment-box">
+                                <span class="payment-icon">📱</span>
+                                <strong>Pay Rapido</strong>
+                                <small>Apple Pay / Google Pay</small>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="order-summary-box">
+                        <div class="summary-line">
+                            <span>Articoli (<span id="modalSummaryCount">0</span>)</span>
+                            <span id="modalSummaryItems">€ 0.00</span>
+                        </div>
+                        <div class="summary-line">
+                            <span>Spedizione Espressa</span>
+                            <span id="modalSummaryShipping">Gratuita</span>
+                        </div>
+                        <div class="summary-line total">
+                            <strong>Totale Dovuto</strong>
+                            <strong id="modalSummaryTotal">€ 0.00</strong>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-submit-order" id="submitOrderBtn">Conferma ed Effettua Ordine</button>
+                </form>
+            </div>
+
+            <!-- Schermata di Conferma Ordine Finale -->
+            <div id="checkoutSuccessStep" class="checkout-success hidden">
+                <div class="success-icon">✨</div>
+                <h2>Ordine Confermato!</h2>
+                <p>Grazie per aver scelto AURA. Il tuo rituale di bellezza è in preparazione presso i nostri laboratori.</p>
+                
+                <div class="order-receipt-card">
+                    <div class="receipt-header">
+                        <span>RICEVUTA ORDINE</span>
+                        <strong id="receiptOrderId">#AURA-98214</strong>
+                    </div>
+                    <div class="receipt-body">
+                        <p><strong>Destinatario:</strong> <span id="receiptName">-</span></p>
+                        <p><strong>Indirizzo:</strong> <span id="receiptAddress">-</span></p>
+                        <p><strong>Metodo Pagamento:</strong> <span id="receiptPayment">-</span></p>
+                        <p><strong>Importo Transazione:</strong> <span id="receiptTotal">-</span></p>
+                    </div>
+                </div>
+
+                <div class="success-actions">
+                    <button class="btn-primary" id="continueShoppingBtn">Continua lo Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         8. MODALE INFORMATIVO (Ingredienti, Spedizioni, Contatti)
+         ====================================================================== -->
+    <div class="modal-backdrop" id="infoModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <button class="modal-close" id="closeInfoBtn" aria-label="Chiudi informazioni">&times;</button>
+            <div id="infoModalBody">
+                <!-- Contenuti iniettati via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         9. FOOTER UFFICIALE
+         ====================================================================== -->
     <footer>
-        <p>&copy; 2026 AURA Aesthetics. Simulazione Dimostrativa Orbis Engine.</p>
+        <div class="footer-top">
+            <div class="footer-col brand-col">
+                <div class="logo footer-logo">AU<span>R</span>A</div>
+                <p>Laboratorio botanico ad alta efficacia. Ispirato alla purezza della natura, guidato dal rigore della dermatologia moderna.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Esplora</h4>
+                <a href="#prodotti">Tutti i Trattamenti</a>
+                <a href="#valori">I Nostri Principi</a>
+                <a href="#" class="open-info-trigger" data-modal="ingredienti">Glossario Attivi</a>
+            </div>
+            <div class="footer-col">
+                <h4>Assistenza Clienti</h4>
+                <a href="#" class="open-info-trigger" data-modal="spedizioni">Spedizioni e Consegne</a>
+                <a href="#" class="open-info-trigger" data-modal="resi">Politica di Reso</a>
+                <a href="#" class="open-info-trigger" data-modal="contatti">Contatta il Supporto</a>
+            </div>
+            <div class="footer-col">
+                <h4>Boutique &amp; Lab</h4>
+                <p>Via dei Condotti, 12 &bull; 00187 Roma (RM)</p>
+                <p>Email: concierge@auraskincare.it</p>
+                <p>Tel: +39 06 9876 5432</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AURA Aesthetics. Tutti i diritti riservati. P.IVA 09876543210</p>
+            <p class="credits">Architettura Store Single-Page sviluppata con <strong>The Orbis Project</strong></p>
+        </div>
     </footer>
 
-    <!-- === LOGICA JAVASCRIPT (SANITIZZATA E RIGIDA) === -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Stato E-commerce Globale (Storage)
-            let cart = [];
-            const STORAGE_KEY = 'aura_store_cart_v1';
-
-            // Nodi DOM
-            const btnOpenCart = document.getElementById('openCartBtn');
-            const btnCloseCart = document.getElementById('closeCartBtn');
-            const sidebar = document.getElementById('cartSidebar');
-            const addToCartBtns = document.querySelectorAll('.add-to-cart');
-            const cartItemsContainer = document.getElementById('cartItemsContainer');
-            const cartCountUI = document.getElementById('cartCount');
-            const cartTotalUI = document.getElementById('cartTotalUI');
-            const checkoutBtn = document.getElementById('checkoutBtn');
-
-            // Storage Validation & Sync
-            const loadCart = () => {
-                try {
-                    const storedData = localStorage.getItem(STORAGE_KEY);
-                    if (storedData) {
-                        const parsed = JSON.parse(storedData);
-                        if (Array.isArray(parsed)) {
-                            cart = parsed.filter(item => item.id && item.name && typeof item.price === 'number' && typeof item.quantity === 'number');
-                        }
-                    }
-                } catch (e) {
-                    console.error("Orbis Engine: Errore parsing localStorage");
-                    cart = [];
-                }
-            };
-
-            const saveCart = () => {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-            };
-
-            const toggleCart = (state) => {
-                if(state) sidebar.classList.add('open');
-                else sidebar.classList.remove('open');
-            };
-
-            btnOpenCart.addEventListener('click', () => toggleCart(true));
-            btnCloseCart.addEventListener('click', () => toggleCart(false));
-
-            const removeFromCart = (id) => {
-                cart = cart.filter(item => item.id !== id);
-                saveCart();
-                updateCartUI();
-            };
-
-            const updateCartUI = () => {
-                cartItemsContainer.textContent = ''; 
-                let total = 0;
-                let count = 0;
-
-                if (cart.length === 0) {
-                    const emptyMsg = document.createElement('p');
-                    emptyMsg.textContent = 'Il carrello è vuoto.';
-                    cartItemsContainer.appendChild(emptyMsg);
-                } else {
-                    cart.forEach(item => {
-                        total += item.price * item.quantity;
-                        count += item.quantity;
-
-                        const itemRow = document.createElement('div');
-                        itemRow.className = 'cart-item';
-
-                        const infoWrapper = document.createElement('div');
-                        infoWrapper.style.display = 'flex';
-                        infoWrapper.style.flexDirection = 'column';
-                        infoWrapper.style.gap = '0.3rem';
-                        
-                        const itemNameNode = document.createElement('div');
-                        itemNameNode.textContent = `${item.name} (x${item.quantity})`;
-                        itemNameNode.style.fontWeight = 'bold';
-
-                        const itemPriceNode = document.createElement('div');
-                        itemPriceNode.textContent = `€ ${(item.price * item.quantity).toFixed(2)}`;
-                        
-                        infoWrapper.appendChild(itemNameNode);
-                        infoWrapper.appendChild(itemPriceNode);
-
-                        const removeBtnNode = document.createElement('button');
-                        removeBtnNode.className = 'remove-btn';
-                        removeBtnNode.textContent = 'Rimuovi';
-                        removeBtnNode.addEventListener('click', () => removeFromCart(item.id));
-
-                        itemRow.appendChild(infoWrapper);
-                        itemRow.appendChild(removeBtnNode);
-                        cartItemsContainer.appendChild(itemRow);
-                    });
-                }
-
-                cartCountUI.textContent = count.toString();
-                cartTotalUI.textContent = `€ ${total.toFixed(2)}`;
-            };
-
-            const addToCart = (id, name, rawPrice) => {
-                const price = parseFloat(rawPrice);
-                if (isNaN(price) || !id || !name) {
-                    console.error("Orbis Engine Validation Error: Parametri non validi.");
-                    return;
-                }
-
-                const existingItem = cart.find(item => item.id === id);
-                if (existingItem) {
-                    existingItem.quantity += 1;
-                } else {
-                    cart.push({ id, name, price, quantity: 1 });
-                }
-                
-                saveCart();
-                updateCartUI();
-                toggleCart(true);
-            };
-
-            addToCartBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const currentBtn = e.currentTarget;
-                    const id = currentBtn.getAttribute('data-id');
-                    const name = currentBtn.getAttribute('data-name');
-                    const price = currentBtn.getAttribute('data-price');
-                    addToCart(id, name, price);
-                });
-            });
-
-            checkoutBtn.addEventListener('click', () => {
-                if(cart.length === 0) {
-                    alert('Aggiungi prodotti al carrello prima di procedere.');
-                    return;
-                }
-                alert('Inizializzazione Gateway di Pagamento (Simulazione completata con successo).');
-                cart = []; 
-                saveCart();
-                updateCartUI();
-                toggleCart(false);
-            });
-
-            loadCart();
-            updateCartUI();
-        });
-    </script>
+    <!-- Motore Logico dello Store -->
+    <script src="js/store.js" defer></script>
 </body>
 </html>
