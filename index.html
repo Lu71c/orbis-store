@@ -122,14 +122,14 @@
             <button class="btn-secondary reset-filters-btn" id="resetFiltersBtn">Mostra tutti i prodotti</button>
         </div>
 
-        <!-- Griglia Prodotti (20 Articoli Completi con Lazy Load e Async Decoding) -->
+        <!-- Griglia Prodotti (Rendering immediato da RAM, senza blocco lazy) -->
         <div class="product-grid" id="productGrid">
             
             <!-- 1. Siero Illuminante -->
             <article class="product-card" data-category="sieri" data-name="Siero Illuminante" data-actives="Vitamina C Acido Ialuronico">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/siero.illuminante[1].webp" class="product-img" loading="lazy" decoding="async" alt="Siero Illuminante AURA">
+                        <img src="img/siero.illuminante[1].webp" class="product-img" decoding="async" alt="Siero Illuminante AURA">
                         <div class="overlay">Vitamina C &amp; Acido Ialuronico</div>
                         <span class="product-badge">Best Seller</span>
                     </div>
@@ -149,7 +149,7 @@
             <article class="product-card" data-category="viso" data-name="Crema Rigenerante Notte" data-actives="Retinolo Botanico Estratti Rari">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/crema.rigenerante.notte[1].webp" class="product-img" loading="lazy" decoding="async" alt="Crema Rigenerante Notte AURA">
+                        <img src="img/crema.rigenerante.notte[1].webp" class="product-img" decoding="async" alt="Crema Rigenerante Notte AURA">
                         <div class="overlay">Estratti botanici rari e retinolo</div>
                     </div>
                     <div class="product-info">
@@ -168,7 +168,7 @@
             <article class="product-card" data-category="detersione" data-name="Detergente Purificante" data-actives="Argilla Bianca Te Verde">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/detergente.purificante[1].webp" class="product-img" loading="lazy" decoding="async" alt="Detergente Purificante AURA">
+                        <img src="img/detergente.purificante[1].webp" class="product-img" decoding="async" alt="Detergente Purificante AURA">
                         <div class="overlay">Argilla bianca e tè verde</div>
                     </div>
                     <div class="product-info">
@@ -187,7 +187,7 @@
             <article class="product-card" data-category="detersione" data-name="Tonico Riequilibrante" data-actives="Acqua di Rose Amamelide">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/tonico.riequilibrante[1].webp" class="product-img" loading="lazy" decoding="async" alt="Tonico Riequilibrante AURA">
+                        <img src="img/tonico.riequilibrante[1].webp" class="product-img" decoding="async" alt="Tonico Riequilibrante AURA">
                         <div class="overlay">Acqua di rose e amamelide</div>
                     </div>
                     <div class="product-info">
@@ -206,7 +206,7 @@
             <article class="product-card" data-category="viso" data-name="Maschera Detox Argilla" data-actives="Argilla Vulcanica Carbone Attivo">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/maschera.detox.argilla[1].webp" class="product-img" loading="lazy" decoding="async" alt="Maschera Detox Argilla AURA">
+                        <img src="img/maschera.detox.argilla[1].webp" class="product-img" decoding="async" alt="Maschera Detox Argilla AURA">
                         <div class="overlay">Argilla vulcanica e carbone</div>
                     </div>
                     <div class="product-info">
@@ -225,7 +225,7 @@
             <article class="product-card" data-category="corpo" data-name="Olio Corpo Vellutante" data-actives="Mandorle Dolci Jojoba">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/olio.corpo.vellutante[1].webp" class="product-img" loading="lazy" decoding="async" alt="Olio Corpo Vellutante AURA">
+                        <img src="img/olio.corpo.vellutante[1].webp" class="product-img" decoding="async" alt="Olio Corpo Vellutante AURA">
                         <div class="overlay">Mandorle dolci e jojoba</div>
                     </div>
                     <div class="product-info">
@@ -244,7 +244,7 @@
             <article class="product-card" data-category="detersione" data-name="Esfoliante Enzimatico Viso" data-actives="Enzimi Papaia Ananas">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/esfoliante.enzimatico.viso[1].webp" class="product-img" loading="lazy" decoding="async" alt="Esfoliante Enzimatico Viso AURA">
+                        <img src="img/esfoliante.enzimatico.viso[1].webp" class="product-img" decoding="async" alt="Esfoliante Enzimatico Viso AURA">
                         <div class="overlay">Enzimi di papaia e ananas</div>
                     </div>
                     <div class="product-info">
@@ -263,7 +263,7 @@
             <article class="product-card" data-category="viso" data-name="Crema Contorno Occhi" data-actives="Caffeina Peptidi Attivi">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/crema.contorno.occhi[1].webp" class="product-img" loading="lazy" decoding="async" alt="Crema Contorno Occhi AURA">
+                        <img src="img/crema.contorno.occhi[1].webp" class="product-img" decoding="async" alt="Crema Contorno Occhi AURA">
                         <div class="overlay">Caffeina e peptidi attivi</div>
                     </div>
                     <div class="product-info">
@@ -282,7 +282,7 @@
             <article class="product-card" data-category="sieri" data-name="Siero Retinolo Puro 1%" data-actives="Retinolo Anti-eta Rigenerazione">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/siero.retinolo.puro.1%25[1].webp" class="product-img" loading="lazy" decoding="async" alt="Siero Retinolo Puro 1% AURA">
+                        <img src="img/siero.retinolo.puro.1%25[1].webp" class="product-img" decoding="async" alt="Siero Retinolo Puro 1% AURA">
                         <div class="overlay">Trattamento notturno anti-età</div>
                         <span class="product-badge accent">Formula Pro</span>
                     </div>
@@ -302,7 +302,7 @@
             <article class="product-card" data-category="sieri" data-name="Essenza Idratante Profonda" data-actives="Estratto di Loto Probiotici">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/essenza.idratante.profonda[1].webp" class="product-img" loading="lazy" decoding="async" alt="Essenza Idratante Profonda AURA">
+                        <img src="img/essenza.idratante.profonda[1].webp" class="product-img" decoding="async" alt="Essenza Idratante Profonda AURA">
                         <div class="overlay">Estratto di loto e probiotici</div>
                     </div>
                     <div class="product-info">
@@ -321,7 +321,7 @@
             <article class="product-card" data-category="viso" data-name="Balsamo Labbra Riparatore" data-actives="Burro di Karite Cera d'Api">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/balsamo.labbra.riparatore[1].webp" class="product-img" loading="lazy" decoding="async" alt="Balsamo Labbra Riparatore AURA">
+                        <img src="img/balsamo.labbra.riparatore[1].webp" class="product-img" decoding="async" alt="Balsamo Labbra Riparatore AURA">
                         <div class="overlay">Burro di karité e cera d'api</div>
                     </div>
                     <div class="product-info">
@@ -340,7 +340,7 @@
             <article class="product-card" data-category="corpo" data-name="Lozione Corpo Esfoliante" data-actives="AHA BHA Acido Salicilico">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/lozione.corpo.esfoliante[1].webp" class="product-img" loading="lazy" decoding="async" alt="Lozione Corpo Esfoliante AURA">
+                        <img src="img/lozione.corpo.esfoliante[1].webp" class="product-img" decoding="async" alt="Lozione Corpo Esfoliante AURA">
                         <div class="overlay">AHA e BHA leviganti</div>
                     </div>
                     <div class="product-info">
@@ -359,7 +359,7 @@
             <article class="product-card" data-category="corpo" data-name="Crema Mani Protettiva" data-actives="Olio di Macadamia Ceramidi">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/crema.mani.protettiva[1].webp" class="product-img" loading="lazy" decoding="async" alt="Crema Mani Protettiva AURA">
+                        <img src="img/crema.mani.protettiva[1].webp" class="product-img" decoding="async" alt="Crema Mani Protettiva AURA">
                         <div class="overlay">Olio di macadamia e ceramidi</div>
                     </div>
                     <div class="product-info">
@@ -378,7 +378,7 @@
             <article class="product-card" data-category="sieri" data-name="Olio Viso Rigenerante" data-actives="Rosa Mosqueta Squalano">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/olio.viso.rigenerante[1].webp" class="product-img" loading="lazy" decoding="async" alt="Olio Viso Rigenerante AURA">
+                        <img src="img/olio.viso.rigenerante[1].webp" class="product-img" decoding="async" alt="Olio Viso Rigenerante AURA">
                         <div class="overlay">Rosa mosqueta e squalano</div>
                     </div>
                     <div class="product-info">
@@ -397,7 +397,7 @@
             <article class="product-card" data-category="sieri" data-name="Siero Niacinamide 10%" data-actives="Niacinamide Zinco Pori Sebo">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/siero.niacinamide.10%25[1].webp" class="product-img" loading="lazy" decoding="async" alt="Siero Niacinamide 10% AURA">
+                        <img src="img/siero.niacinamide.10%25[1].webp" class="product-img" decoding="async" alt="Siero Niacinamide 10% AURA">
                         <div class="overlay">Controllo sebo e pori dilatati</div>
                     </div>
                     <div class="product-info">
@@ -416,7 +416,7 @@
             <article class="product-card" data-category="detersione" data-name="Detergente Oleoso Struccante" data-actives="Olio Riso Camelia Doppia Detersione">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/detergente.oleoso.struccante[1].webp" class="product-img" loading="lazy" decoding="async" alt="Detergente Oleoso Struccante AURA">
+                        <img src="img/detergente.oleoso.struccante[1].webp" class="product-img" decoding="async" alt="Detergente Oleoso Struccante AURA">
                         <div class="overlay">Prima fase doppia detersione</div>
                     </div>
                     <div class="product-info">
@@ -435,7 +435,7 @@
             <article class="product-card" data-category="corpo" data-name="Scrub Corpo Levigante" data-actives="Sali Mar Morto Agrumi">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/scrub.corpo.levigante[1].webp" class="product-img" loading="lazy" decoding="async" alt="Scrub Corpo Levigante AURA">
+                        <img src="img/scrub.corpo.levigante[1].webp" class="product-img" decoding="async" alt="Scrub Corpo Levigante AURA">
                         <div class="overlay">Sali del mar morto e agrumi</div>
                     </div>
                     <div class="product-info">
@@ -454,7 +454,7 @@
             <article class="product-card" data-category="sieri" data-name="Booster Vitamina E Pura" data-actives="Tocoferolo Antiossidante Barriera">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/booster.vitamina.e.pura[1].webp" class="product-img" loading="lazy" decoding="async" alt="Booster Vitamina E Pura AURA">
+                        <img src="img/booster.vitamina.e.pura[1].webp" class="product-img" decoding="async" alt="Booster Vitamina E Pura AURA">
                         <div class="overlay">Azione antiossidante intensiva</div>
                     </div>
                     <div class="product-info">
@@ -473,7 +473,7 @@
             <article class="product-card" data-category="corpo" data-name="Crema Collo e Décolleté" data-actives="Lifting Peptidi Rassodante">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/crema.collo.e.decollete[1].webp" class="product-img" loading="lazy" decoding="async" alt="Crema Collo e Décolleté AURA">
+                        <img src="img/crema.collo.e.decollete[1].webp" class="product-img" decoding="async" alt="Crema Collo e Décolleté AURA">
                         <div class="overlay">Effetto lifting e rassodante</div>
                     </div>
                     <div class="product-info">
@@ -492,7 +492,7 @@
             <article class="product-card" data-category="viso" data-name="Patch Occhi Idrogel (Set)" data-actives="Acido Ialuronico Oro 24K Idrogel">
                 <div class="card-content">
                     <div class="image-wrapper">
-                        <img src="img/patch.occhi.idrogel.(set)[1].webp" class="product-img" loading="lazy" decoding="async" alt="Patch Occhi Idrogel Set AURA">
+                        <img src="img/patch.occhi.idrogel.(set)[1].webp" class="product-img" decoding="async" alt="Patch Occhi Idrogel Set AURA">
                         <div class="overlay">Acido ialuronico e oro 24k</div>
                     </div>
                     <div class="product-info">
