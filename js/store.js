@@ -6,6 +6,39 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ==========================================================================
+       0. PRECARICAMENTO IMMAGINI IN RAM
+       Carica silenziosamente i file .webp appena l'utente atterra sul sito
+       ========================================================================== */
+    const storeImages = [
+        'img/aura.hero-1[1].webp',
+        'img/siero.illuminante[1].webp',
+        'img/crema.rigenerante.notte[1].webp',
+        'img/detergente.purificante[1].webp',
+        'img/tonico.riequilibrante[1].webp',
+        'img/maschera.detox.argilla[1].webp',
+        'img/olio.corpo.vellutante[1].webp',
+        'img/esfoliante.enzimatico.viso[1].webp',
+        'img/crema.contorno.occhi[1].webp',
+        'img/siero.retinolo.puro.1%25[1].webp',
+        'img/essenza.idratante.profonda[1].webp',
+        'img/balsamo.labbra.riparatore[1].webp',
+        'img/lozione.corpo.esfoliante[1].webp',
+        'img/crema.mani.protettiva[1].webp',
+        'img/olio.viso.rigenerante[1].webp',
+        'img/siero.niacinamide.10%25[1].webp',
+        'img/detergente.oleoso.struccante[1].webp',
+        'img/scrub.corpo.levigante[1].webp',
+        'img/booster.vitamina.e.pura[1].webp',
+        'img/crema.collo.e.decollete[1].webp',
+        'img/patch.occhi.idrogel.(set)[1].webp'
+    ];
+
+    storeImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+
+    /* ==========================================================================
        1. INTERFACCIA BASE E NAVIGAZIONE MOBILE
        ========================================================================== */
     const header = document.getElementById('mainHeader');
