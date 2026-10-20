@@ -6,7 +6,10 @@
     <title>AURA | Premium Skincare &amp; Aesthetics</title>
     <meta name="description" content="AURA - Trattamenti botanici avanzati per la cura della pelle. Formulazioni pure, dermatologicamente testate, per un rituale di bellezza quotidiano.">
 
-    <!-- Tipografia Google Fonts (Inter + Cormorant Garamond per un tono luxury/skincare) -->
+    <!-- Preload Nativo Prioritario per Immagine Hero (Elimina l'effetto a tendina) -->
+    <link rel="preload" as="image" href="img/aura.hero[1].webp" fetchpriority="high">
+
+    <!-- Tipografia Google Fonts (Inter + Cormorant Garamond) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -71,9 +74,9 @@
     </div>
 
     <!-- ======================================================================
-         3. HERO PRINCIPALE
+         3. HERO PRINCIPALE (Nome File Corretto: aura.hero[1].webp)[cite: 6]
          ====================================================================== -->
-    <section class="hero" style="background-image: url('img/aura.hero-[1].webp');">
+    <section class="hero" style="background-image: url('img/aura.hero[1].webp');">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <span class="hero-tag">Rituale Botanico Essenziale</span>
@@ -122,10 +125,10 @@
             <button class="btn-secondary reset-filters-btn" id="resetFiltersBtn">Mostra tutti i prodotti</button>
         </div>
 
-        <!-- Griglia Prodotti (Rendering immediato da RAM, senza blocco lazy) -->
+        <!-- Griglia Prodotti (Rendering immediato con decodifica asincrona) -->
         <div class="product-grid" id="productGrid">
             
-            <!-- 1. Siero Illuminante -->
+            <!-- 1. Siero Illuminante[cite: 6] -->
             <article class="product-card" data-category="sieri" data-name="Siero Illuminante" data-actives="Vitamina C Acido Ialuronico">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -145,7 +148,7 @@
                 </div>
             </article>
 
-            <!-- 2. Crema Rigenerante Notte -->
+            <!-- 2. Crema Rigenerante Notte[cite: 6] -->
             <article class="product-card" data-category="viso" data-name="Crema Rigenerante Notte" data-actives="Retinolo Botanico Estratti Rari">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -164,7 +167,7 @@
                 </div>
             </article>
 
-            <!-- 3. Detergente Purificante -->
+            <!-- 3. Detergente Purificante[cite: 6] -->
             <article class="product-card" data-category="detersione" data-name="Detergente Purificante" data-actives="Argilla Bianca Te Verde">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -183,7 +186,7 @@
                 </div>
             </article>
 
-            <!-- 4. Tonico Riequilibrante -->
+            <!-- 4. Tonico Riequilibrante[cite: 6] -->
             <article class="product-card" data-category="detersione" data-name="Tonico Riequilibrante" data-actives="Acqua di Rose Amamelide">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -202,7 +205,7 @@
                 </div>
             </article>
 
-            <!-- 5. Maschera Detox Argilla -->
+            <!-- 5. Maschera Detox Argilla[cite: 6] -->
             <article class="product-card" data-category="viso" data-name="Maschera Detox Argilla" data-actives="Argilla Vulcanica Carbone Attivo">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -221,7 +224,7 @@
                 </div>
             </article>
 
-            <!-- 6. Olio Corpo Vellutante -->
+            <!-- 6. Olio Corpo Vellutante[cite: 6] -->
             <article class="product-card" data-category="corpo" data-name="Olio Corpo Vellutante" data-actives="Mandorle Dolci Jojoba">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -240,7 +243,7 @@
                 </div>
             </article>
 
-            <!-- 7. Esfoliante Enzimatico Viso -->
+            <!-- 7. Esfoliante Enzimatico Viso[cite: 6] -->
             <article class="product-card" data-category="detersione" data-name="Esfoliante Enzimatico Viso" data-actives="Enzimi Papaia Ananas">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -259,7 +262,7 @@
                 </div>
             </article>
 
-            <!-- 8. Crema Contorno Occhi -->
+            <!-- 8. Crema Contorno Occhi[cite: 6] -->
             <article class="product-card" data-category="viso" data-name="Crema Contorno Occhi" data-actives="Caffeina Peptidi Attivi">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -278,7 +281,7 @@
                 </div>
             </article>
 
-            <!-- 9. Siero Retinolo Puro 1% -->
+            <!-- 9. Siero Retinolo Puro 1%[cite: 6] -->
             <article class="product-card" data-category="sieri" data-name="Siero Retinolo Puro 1%" data-actives="Retinolo Anti-eta Rigenerazione">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -298,7 +301,7 @@
                 </div>
             </article>
 
-            <!-- 10. Essenza Idratante Profonda -->
+            <!-- 10. Essenza Idratante Profonda[cite: 6] -->
             <article class="product-card" data-category="sieri" data-name="Essenza Idratante Profonda" data-actives="Estratto di Loto Probiotici">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -317,7 +320,7 @@
                 </div>
             </article>
 
-            <!-- 11. Balsamo Labbra Riparatore -->
+            <!-- 11. Balsamo Labbra Riparatore[cite: 6] -->
             <article class="product-card" data-category="viso" data-name="Balsamo Labbra Riparatore" data-actives="Burro di Karite Cera d'Api">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -336,7 +339,7 @@
                 </div>
             </article>
 
-            <!-- 12. Lozione Corpo Esfoliante -->
+            <!-- 12. Lozione Corpo Esfoliante[cite: 6] -->
             <article class="product-card" data-category="corpo" data-name="Lozione Corpo Esfoliante" data-actives="AHA BHA Acido Salicilico">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -355,7 +358,7 @@
                 </div>
             </article>
 
-            <!-- 13. Crema Mani Protettiva -->
+            <!-- 13. Crema Mani Protettiva[cite: 6] -->
             <article class="product-card" data-category="corpo" data-name="Crema Mani Protettiva" data-actives="Olio di Macadamia Ceramidi">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -374,7 +377,7 @@
                 </div>
             </article>
 
-            <!-- 14. Olio Viso Rigenerante -->
+            <!-- 14. Olio Viso Rigenerante[cite: 6] -->
             <article class="product-card" data-category="sieri" data-name="Olio Viso Rigenerante" data-actives="Rosa Mosqueta Squalano">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -393,7 +396,7 @@
                 </div>
             </article>
 
-            <!-- 15. Siero Niacinamide 10% -->
+            <!-- 15. Siero Niacinamide 10%[cite: 6] -->
             <article class="product-card" data-category="sieri" data-name="Siero Niacinamide 10%" data-actives="Niacinamide Zinco Pori Sebo">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -412,7 +415,7 @@
                 </div>
             </article>
 
-            <!-- 16. Detergente Oleoso Struccante -->
+            <!-- 16. Detergente Oleoso Struccante[cite: 6] -->
             <article class="product-card" data-category="detersione" data-name="Detergente Oleoso Struccante" data-actives="Olio Riso Camelia Doppia Detersione">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -431,7 +434,7 @@
                 </div>
             </article>
 
-            <!-- 17. Scrub Corpo Levigante -->
+            <!-- 17. Scrub Corpo Levigante[cite: 6] -->
             <article class="product-card" data-category="corpo" data-name="Scrub Corpo Levigante" data-actives="Sali Mar Morto Agrumi">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -450,7 +453,7 @@
                 </div>
             </article>
 
-            <!-- 18. Booster Vitamina E Pura -->
+            <!-- 18. Booster Vitamina E Pura[cite: 6] -->
             <article class="product-card" data-category="sieri" data-name="Booster Vitamina E Pura" data-actives="Tocoferolo Antiossidante Barriera">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -469,7 +472,7 @@
                 </div>
             </article>
 
-            <!-- 19. Crema Collo e Décolleté -->
+            <!-- 19. Crema Collo e Décolleté[cite: 6] -->
             <article class="product-card" data-category="corpo" data-name="Crema Collo e Décolleté" data-actives="Lifting Peptidi Rassodante">
                 <div class="card-content">
                     <div class="image-wrapper">
@@ -488,7 +491,7 @@
                 </div>
             </article>
 
-            <!-- 20. Patch Occhi Idrogel (Set) -->
+            <!-- 20. Patch Occhi Idrogel (Set)[cite: 6] -->
             <article class="product-card" data-category="viso" data-name="Patch Occhi Idrogel (Set)" data-actives="Acido Ialuronico Oro 24K Idrogel">
                 <div class="card-content">
                     <div class="image-wrapper">
