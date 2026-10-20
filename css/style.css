@@ -8,10 +8,12 @@
     --bg-main: #fcfbf9;        /* Panna chiarissimo caldo */
     --bg-card: #ffffff;        /* Bianco puro */
     --bg-drawer: #f4f0eb;      /* Sfondo cassetti e menu */
+    --bg-dark-accent: #2c2a27; /* Antracite caldo per sfondi premium */
     
     --text-dark: #1a1a1a;      /* Antracite profondo (Testi principali) */
     --text-medium: #4a4a4a;    /* Grigio scuro (Paragrafi) */
     --text-light: #7a7a7a;     /* Grigio cenere (Didascalie e snippet) */
+    --text-inverse: #f9f8f6;   /* Bianco sporco per testi su scuro */
     
     --accent-gold: #cba265;    /* Oro opaco caldo */
     --accent-hover: #b38b52;   /* Oro brunito per hover */
@@ -137,12 +139,14 @@ button {
     color: var(--bg-main);
 }
 
+/* Etichette Scritte in Corsivo Sopra i Titoli */
 .section-tag {
     display: block;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-style: italic;
     color: var(--accent-gold);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.5px;
 }
 
 /* ==========================================================================
@@ -419,7 +423,8 @@ header.scrolled {
 .store-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 40px 5% 100px;
+    /* Rimosso l'eccessivo padding inferiore per avvicinare la sezione Valori */
+    padding: 40px 5% 40px; 
 }
 
 .store-header {
@@ -533,7 +538,6 @@ header.scrolled {
     display: flex;
     flex-direction: column;
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-    /* Ottimizzazione Rendering */
     will-change: transform, opacity;
 }
 
@@ -555,7 +559,6 @@ header.scrolled {
 .image-wrapper {
     position: relative;
     width: 100%;
-    /* Aspect Ratio fisso per prevenire salti visivi durante il lazy loading */
     aspect-ratio: 4/5;
     background-color: var(--bg-drawer);
     overflow: hidden;
@@ -672,22 +675,39 @@ header.scrolled {
 }
 
 /* ==========================================================================
-   5. VALORI E FILOSOFIA DI BRAND
+   5. VALORI E FILOSOFIA DI BRAND (Restyling Premium)
    ========================================================================== */
 .brand-values-section {
-    background-color: var(--bg-card);
+    background-color: var(--bg-dark-accent);
+    color: var(--text-inverse);
     padding: 100px 5%;
     text-align: center;
+    /* Aggiunge uno stacco netto dalla sezione bianca precedente */
+    border-top: 1px solid rgba(255,255,255,0.05); 
 }
 
 .values-header {
-    max-width: 700px;
-    margin: 0 auto 60px;
+    max-width: 800px;
+    margin: 0 auto 70px;
+}
+
+.values-header .section-tag {
+    font-size: 1.3rem; /* Tag ingrandito come richiesto */
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
 }
 
 .values-header h2 {
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
-    margin-bottom: 16px;
+    font-size: clamp(2.5rem, 5vw, 3.8rem); /* Titolo molto più grande e d'impatto */
+    margin-bottom: 24px;
+    color: var(--text-inverse);
+    line-height: 1.1;
+}
+
+.values-header p {
+    font-size: 1.1rem;
+    color: #cccccc; /* Grigio chiaro per contrasto su sfondo scuro */
+    font-weight: 300;
 }
 
 .values-grid {
@@ -699,25 +719,33 @@ header.scrolled {
 }
 
 .value-card {
-    padding: 32px;
+    padding: 40px 32px;
     border-radius: var(--radius-md);
-    background-color: var(--bg-main);
-    border: 1px solid var(--border-soft);
+    background-color: rgba(255, 255, 255, 0.03); /* Effetto vetro leggerissimo su sfondo scuro */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-gold);
 }
 
 .value-icon {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: 3rem;
+    margin-bottom: 24px;
 }
 
 .value-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+    color: var(--text-inverse);
 }
 
 .value-card p {
-    font-size: 0.9rem;
-    color: var(--text-medium);
+    font-size: 0.95rem;
+    color: #bbbbbb;
+    line-height: 1.7;
 }
 
 /* ==========================================================================
