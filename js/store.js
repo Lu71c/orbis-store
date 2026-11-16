@@ -1,16 +1,128 @@
 /* ==========================================================================
    AURA | PREMIUM SKINCARE & AESTHETICS - MOTORE E-COMMERCE (js/store.js)
-   Include: Live Search, Filtri Categoria, Carrello Smart & Checkout Form
+   Include: Orbis Dual Telemetry (Sito + Store), Live Search, Filtri, Carrello & Checkout
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ==========================================================================
-       0. PRECARICAMENTO IMMAGINI IN RAM
+       0A. ORBIS PRIVACY-FIRST ANALYTICS ENGINE (Card 3 Sito + Card 4 Prodotti)
+       Zero Cookie • Zero IP • GDPR-Free
+       ========================================================================== */
+    const ORBIS_ANALYTICS = (() => {
+        const ENDPOINT = 'https://smith-anchor-untoasted.ngrok-free.dev/api/v1/analytics/hit';
+        const SITE_ID = document.body.getAttribute('data-orbis-site') || 'aura-skincare';
+        const DWELL_MS = 2000; // Soglia minima di permanenza visiva (2 secondi)
+        const trackedSessionKeys = new Set();
+
+        function sendPulse(eventType, targetId, label = '') {
+            if (!SITE_ID || !targetId) return;
+            const params = new URLSearchParams({
+                site_id: SITE_ID,
+                event_type: eventType,
+                target_id: targetId
+            });
+            if (label) params.set('label', label);
+
+            const url = `${ENDPOINT}?${params.toString()}`;
+            try {
+                fetch(url, {
+                    method: 'POST',
+                    keepalive: true,
+                    headers: { 'ngrok-skip-browser-warning': 'true' }
+                }).catch(() => {});
+            } catch (_) {
+                if (navigator.sendBeacon) navigator.sendBeacon(url);
+            }
+        }
+
+        function trackPageView(pageName) {
+            const cleanPage = (pageName || window.location.pathname.split('/').pop() || 'index.html').trim();
+            const dedupKey = `orbis_pv_${SITE_ID}_${cleanPage}`;
+            if (sessionStorage.getItem(dedupKey)) return;
+            sessionStorage.setItem(dedupKey, '1');
+            sendPulse('page_view', cleanPage);
+        }
+
+        function observeScrollSections() {
+            const sections = document.querySelectorAll('section[id], [data-orbis-section]');
+            if (!sections.length || !('IntersectionObserver' in window)) return;
+
+            const activeTimers = new Map();
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const secId = entry.target.getAttribute('data-orbis-section') || entry.target.id;
+                    if (!secId) return;
+
+                    if (entry.isIntersecting) {
+                        if (trackedSessionKeys.has(`sec_${secId}`) || activeTimers.has(secId)) return;
+                        const timerId = setTimeout(() => {
+                            trackedSessionKeys.add(`sec_${secId}`);
+                            activeTimers.delete(secId);
+                            sendPulse('section_view', secId);
+                        }, DWELL_MS);
+                        activeTimers.set(secId, timerId);
+                    } else if (activeTimers.has(secId)) {
+                        clearTimeout(activeTimers.get(secId));
+                        activeTimers.delete(secId);
+                    }
+                });
+            }, { threshold: 0.35 });
+
+            sections.forEach(sec => observer.observe(sec));
+        }
+
+        function bindClickTracking() {
+            document.addEventListener('click', (e) => {
+                // 1. Viste virtuali / modali informativi (Card 3)
+                const virtualPageEl = e.target.closest('[data-orbis-page]');
+                if (virtualPageEl) {
+                    trackPageView(virtualPageEl.getAttribute('data-orbis-page'));
+                }
+
+                // 2. Pulsanti e CTA Sito (Card 3)
+                const trackEl = e.target.closest('[data-orbis-track]');
+                if (trackEl) {
+                    const trackId = trackEl.getAttribute('data-orbis-track');
+                    const trackLabel = trackEl.getAttribute('data-orbis-label') || trackEl.textContent.trim().slice(0, 60);
+                    sendPulse('track_click', trackId, trackLabel);
+                }
+
+                // 3. Clic su scheda prodotto (Card 4 - Isolato dalle metriche sito)
+                const cardContentEl = e.target.closest('.card-content');
+                if (cardContentEl) {
+                    const productCard = cardContentEl.closest('[data-orbis-product]');
+                    const productId = productCard?.getAttribute('data-orbis-product');
+                    if (productId) {
+                        sendPulse('product_click', productId);
+                    }
+                }
+            });
+        }
+
+        return {
+            init() {
+                trackPageView();
+                observeScrollSections();
+                bindClickTracking();
+            },
+            trackCustom(trackId, label) {
+                sendPulse('track_click', trackId, label);
+            },
+            trackProductCart(productId) {
+                if (productId) sendPulse('product_cart', productId);
+            }
+        };
+    })();
+
+    ORBIS_ANALYTICS.init();
+
+    /* ==========================================================================
+       0B. PRECARICAMENTO IMMAGINI IN RAM
        Carica silenziosamente i file .webp appena l'utente atterra sul sito
        ========================================================================== */
     const storeImages = [
-        'img/aura.hero-1[1].webp',
+        'img/aura.hero[1].webp',
         'img/siero.illuminante[1].webp',
         'img/crema.rigenerante.notte[1].webp',
         'img/detergente.purificante[1].webp',
@@ -47,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileDrawer = document.getElementById('mobileDrawer');
     const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
-    // Header Effetto Scroll
     window.addEventListener('scroll', () => {
         if (window.scrollY > 30) {
             header.classList.add('scrolled');
@@ -56,7 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: true });
 
-    // Apertura/Chiusura Menu Mobile
     function toggleMobileMenu(forceClose = false) {
         if (!mobileDrawer) return;
         if (forceClose || mobileDrawer.classList.contains('open')) {
@@ -72,14 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCloseMobile) btnCloseMobile.addEventListener('click', () => toggleMobileMenu(true));
     mobileLinks.forEach(link => link.addEventListener('click', () => toggleMobileMenu(true)));
 
-
     /* ==========================================================================
        2. LIVE SEARCH E FILTRI CATEGORIA
        ========================================================================== */
     const searchInput = document.getElementById('storeSearch');
     const clearSearchBtn = document.getElementById('clearSearch');
     const filterPills = document.querySelectorAll('.filter-pill');
-    const productCards = document.querySelectorAll('.product-card');
+    const productGrid = document.getElementById('productGrid');
     const noResultsBox = document.getElementById('noResults');
     const resetFiltersBtn = document.getElementById('resetFiltersBtn');
 
@@ -88,15 +197,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function filterStore() {
         let visibleCount = 0;
+        const currentCards = document.querySelectorAll('#productGrid .product-card');
 
-        productCards.forEach(card => {
-            const category = card.getAttribute('data-category') || '';
+        currentCards.forEach(card => {
+            const category = card.getAttribute('data-category') || 'all';
             const name = (card.getAttribute('data-name') || '').toLowerCase();
             const actives = (card.getAttribute('data-actives') || '').toLowerCase();
             
-            // Match Categoria
-            const matchCategory = (currentCategory === 'all') || (category === currentCategory);
-            // Match Ricerca
+            const matchCategory = (currentCategory === 'all') || (category === 'all') || (category === currentCategory);
             const matchSearch = name.includes(currentSearchQuery) || actives.includes(currentSearchQuery);
 
             if (matchCategory && matchSearch) {
@@ -107,15 +215,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Gestione Messaggio "Nessun Risultato"
-        if (visibleCount === 0) {
-            noResultsBox.classList.remove('hidden');
-        } else {
-            noResultsBox.classList.add('hidden');
+        if (noResultsBox) {
+            if (visibleCount === 0) {
+                noResultsBox.classList.remove('hidden');
+            } else {
+                noResultsBox.classList.add('hidden');
+            }
         }
     }
 
-    // Listener Ricerca Testuale
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             currentSearchQuery = e.target.value.trim().toLowerCase();
@@ -128,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Listener Svuota Ricerca
     if (clearSearchBtn) {
         clearSearchBtn.addEventListener('click', () => {
             searchInput.value = '';
@@ -138,19 +245,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Listener Filtri Categoria
     filterPills.forEach(pill => {
         pill.addEventListener('click', (e) => {
             filterPills.forEach(p => p.classList.remove('active'));
-            const targetPill = e.target;
+            const targetPill = e.currentTarget;
             targetPill.classList.add('active');
             
             currentCategory = targetPill.getAttribute('data-filter') || 'all';
+            ORBIS_ANALYTICS.trackCustom(`filtro-store-${currentCategory}`, `Filtro Catalogo: ${targetPill.textContent.trim()}`);
             filterStore();
         });
     });
 
-    // Tasto Reset Rapido
     if (resetFiltersBtn) {
         resetFiltersBtn.addEventListener('click', () => {
             if (searchInput) searchInput.value = '';
@@ -158,13 +264,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (clearSearchBtn) clearSearchBtn.classList.add('hidden');
             
             filterPills.forEach(p => p.classList.remove('active'));
-            document.querySelector('.filter-pill[data-filter="all"]').classList.add('active');
+            const allPill = document.querySelector('.filter-pill[data-filter="all"]');
+            if (allPill) allPill.classList.add('active');
             currentCategory = 'all';
             
             filterStore();
         });
     }
-
 
     /* ==========================================================================
        3. GESTIONE CARRELLO (Add, Remove, Qty, LocalStorage, Progress Bar)
@@ -174,7 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const FREE_SHIPPING_THRESHOLD = 50.00;
     const STANDARD_SHIPPING_COST = 5.90;
 
-    // Elementi DOM Carrello
     const btnOpenCart = document.getElementById('openCartBtn');
     const btnCloseCart = document.getElementById('closeCartBtn');
     const cartSidebar = document.getElementById('cartSidebar');
@@ -190,10 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const shippingProgressBar = document.getElementById('shippingProgressBar');
     const shippingStatusText = document.getElementById('shippingStatusText');
-    
-    const addToCartBtns = document.querySelectorAll('.add-to-cart');
 
-    // Funzioni Carrello di base
     function loadCart() {
         try {
             const stored = localStorage.getItem(STORAGE_KEY);
@@ -225,7 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCloseCart) btnCloseCart.addEventListener('click', () => toggleCart(false));
     if (cartBackdrop) cartBackdrop.addEventListener('click', () => toggleCart(false));
 
-    // Aggiunta e Modifica Quantità
     function addToCart(id, name, price, img) {
         const itemIndex = cart.findIndex(item => item.id === id);
         if (itemIndex > -1) {
@@ -233,6 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             cart.push({ id, name, price: parseFloat(price), img, quantity: 1 });
         }
+        ORBIS_ANALYTICS.trackProductCart(id);
         saveCart();
         renderCart();
         toggleCart(true);
@@ -256,7 +358,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCart();
     }
 
-    // Renderizzazione Interfaccia Carrello
     function renderCart() {
         cartItemsContainer.innerHTML = '';
         let subtotal = 0;
@@ -301,12 +402,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 cartItemsContainer.appendChild(row);
             });
 
-            // Gestione Spedizione e Barra di Progresso
             let shippingCost = STANDARD_SHIPPING_COST;
             if (subtotal >= FREE_SHIPPING_THRESHOLD) {
                 shippingCost = 0;
                 shippingProgressBar.style.width = '100%';
-                shippingProgressBar.style.backgroundColor = '#4ade80'; // Verde successo
+                shippingProgressBar.style.backgroundColor = '#4ade80';
                 shippingStatusText.innerHTML = `<strong>Spedizione Express Gratuita</strong> sbloccata!`;
             } else {
                 const missing = FREE_SHIPPING_THRESHOLD - subtotal;
@@ -319,7 +419,6 @@ document.addEventListener('DOMContentLoaded', () => {
             cartShippingUI.textContent = shippingCost === 0 ? 'Gratuita' : `€ ${shippingCost.toFixed(2)}`;
         }
 
-        // Totali e Badge
         const finalTotal = subtotal + (subtotal > 0 && subtotal < FREE_SHIPPING_THRESHOLD ? STANDARD_SHIPPING_COST : 0);
         
         cartSubtotalUI.textContent = `€ ${subtotal.toFixed(2)}`;
@@ -327,7 +426,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cartCountUI.textContent = totalItems.toString();
         cartItemsIndicator.textContent = `(${totalItems} articol${totalItems === 1 ? 'o' : 'i'})`;
 
-        // Associazione Listeners Interni al Carrello
         document.querySelectorAll('.qty-btn.minus').forEach(btn => {
             btn.addEventListener('click', (e) => updateQuantity(e.target.dataset.id, -1));
         });
@@ -339,18 +437,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Listener Aggiungi al Carrello Vetrina
-    addToCartBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const btnEl = e.currentTarget;
-            const id = btnEl.getAttribute('data-id');
-            const name = btnEl.getAttribute('data-name');
-            const price = btnEl.getAttribute('data-price');
-            const img = btnEl.getAttribute('data-img');
+    // Event Delegation su #productGrid (compatibile con aggiornamenti deterministici ORBIS-STORE)
+    if (productGrid) {
+        productGrid.addEventListener('click', (e) => {
+            const btnEl = e.target.closest('.add-to-cart');
+            if (!btnEl || btnEl.disabled) return;
+
+            const cardEl = btnEl.closest('.product-card');
+            const id = btnEl.getAttribute('data-id') || btnEl.getAttribute('data-product-id') || cardEl?.getAttribute('data-orbis-product');
+            const name = btnEl.getAttribute('data-name') || btnEl.getAttribute('data-product-name') || cardEl?.getAttribute('data-name') || 'Prodotto AURA';
+            const price = btnEl.getAttribute('data-price') || btnEl.getAttribute('data-product-price') || '0';
+            const img = btnEl.getAttribute('data-img') || cardEl?.querySelector('img')?.getAttribute('src') || 'img/placeholder.webp';
+
             addToCart(id, name, price, img);
         });
-    });
-
+    }
 
     /* ==========================================================================
        4. MODALE CHECKOUT REALISTICO
@@ -362,7 +463,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutSuccessStep = document.getElementById('checkoutSuccessStep');
     const checkoutForm = document.getElementById('checkoutForm');
     
-    // Nodi Riepilogo Checkout Modal
     const modalSummaryCount = document.getElementById('modalSummaryCount');
     const modalSummaryItems = document.getElementById('modalSummaryItems');
     const modalSummaryShipping = document.getElementById('modalSummaryShipping');
@@ -370,7 +470,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleCheckoutModal(show) {
         if (show) {
-            // Popola il riepilogo ordini
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST;
@@ -381,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
             modalSummaryShipping.textContent = shipping === 0 ? 'Gratuita' : `€ ${shipping.toFixed(2)}`;
             modalSummaryTotal.textContent = `€ ${total.toFixed(2)}`;
 
-            toggleCart(false); // Chiude il carrello
+            toggleCart(false);
             checkoutModal.classList.add('open');
             document.body.classList.add('no-scroll');
         } else {
@@ -400,46 +499,35 @@ document.addEventListener('DOMContentLoaded', () => {
         closeCheckoutBtn.addEventListener('click', () => toggleCheckoutModal(false));
     }
 
-    // Gestione Submit Ordine
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // Estrazione Dati Spedizione
             const orderName = document.getElementById('orderName').value;
             const orderAddress = document.getElementById('orderAddress').value;
             const orderCity = document.getElementById('orderCity').value;
-            
-            // Metodo Pagamento
             const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
             
-            // Totale Calcolato
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST;
             const finalTotal = `€ ${(subtotal + shipping).toFixed(2)}`;
-            
-            // Generazione Fake Order ID
             const orderId = '#AURA-' + Math.floor(10000 + Math.random() * 90000);
 
-            // Transizione a schermata successo
             const submitBtn = document.getElementById('submitOrderBtn');
             const originalBtnText = submitBtn.textContent;
             submitBtn.innerHTML = 'Elaborazione in corso... ⏳';
             submitBtn.style.pointerEvents = 'none';
 
             setTimeout(() => {
-                // Popola Ricevuta
                 document.getElementById('receiptOrderId').textContent = orderId;
                 document.getElementById('receiptName').textContent = orderName;
                 document.getElementById('receiptAddress').textContent = `${orderAddress}, ${orderCity}`;
                 document.getElementById('receiptPayment').textContent = paymentMethod;
                 document.getElementById('receiptTotal').textContent = finalTotal;
 
-                // Cambia Step
                 checkoutFormStep.classList.add('hidden');
                 checkoutSuccessStep.classList.remove('hidden');
 
-                // Svuota Carrello reale
                 cart = [];
                 saveCart();
                 renderCart();
@@ -455,7 +543,6 @@ document.addEventListener('DOMContentLoaded', () => {
         continueShoppingBtn.addEventListener('click', () => {
             toggleCheckoutModal(false);
             setTimeout(() => {
-                // Reset form al volo per la prossima volta
                 checkoutForm.reset();
                 checkoutSuccessStep.classList.add('hidden');
                 checkoutFormStep.classList.remove('hidden');
@@ -533,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="section-tag">Tranquillità d'Acquisto</span>
                 <h2>Politica di Reso Estesa</h2>
             </div>
-            <p style="color: var(--text-medium); line-height: 1.8;">Ogni pelle è unica. Se un prodotto AURA non si adatta alle tue esigenze cutanee, hai 30 giorni per restituirlo. Scrivi a concierge@auraskincare.it fornendo il tuo numero d'ordine (es. #AURA-12345) e ti invieremo l'etichetta di reso prepagata gratuita. Elaboriamo i rimborsi entro 48 ore dalla ricezione in magazzino.</p>
+            <p style="color: var(--text-medium); line-height: 1.8;">Ogni pelle è unica. Se un prodotto AURA non si adatta alle tue esigenze cutanee, hai 30 giorni per restituirlo. Scrivi a concierge@auraskincare.it fornendo il tuo numero d'ordine (es. #AURA-12345) e ti invieremo l'etictta di reso prepagata gratuita. Elaboriamo i rimborsi entro 48 ore dalla ricezione in magazzino.</p>
         `
     };
 
@@ -554,7 +641,8 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
             const modalType = e.currentTarget.getAttribute('data-modal');
-            toggleMobileMenu(true); // Chiude il drawer mobile se aperto
+            ORBIS_ANALYTICS.trackCustom(`info-modal-${modalType}`, `Info Store: ${modalType}`);
+            toggleMobileMenu(true);
             toggleInfoModal(true, modalType);
         });
     });
