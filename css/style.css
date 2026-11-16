@@ -423,7 +423,6 @@ header.scrolled {
 .store-container {
     max-width: 1400px;
     margin: 0 auto;
-    /* Rimosso l'eccessivo padding inferiore per avvicinare la sezione Valori */
     padding: 40px 5% 40px; 
 }
 
@@ -682,7 +681,6 @@ header.scrolled {
     color: var(--text-inverse);
     padding: 100px 5%;
     text-align: center;
-    /* Aggiunge uno stacco netto dalla sezione bianca precedente */
     border-top: 1px solid rgba(255,255,255,0.05); 
 }
 
@@ -692,13 +690,13 @@ header.scrolled {
 }
 
 .values-header .section-tag {
-    font-size: 1.3rem; /* Tag ingrandito come richiesto */
+    font-size: 1.3rem;
     color: var(--accent-gold);
     margin-bottom: 1rem;
 }
 
 .values-header h2 {
-    font-size: clamp(2.5rem, 5vw, 3.8rem); /* Titolo molto più grande e d'impatto */
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
     margin-bottom: 24px;
     color: var(--text-inverse);
     line-height: 1.1;
@@ -706,7 +704,7 @@ header.scrolled {
 
 .values-header p {
     font-size: 1.1rem;
-    color: #cccccc; /* Grigio chiaro per contrasto su sfondo scuro */
+    color: #cccccc;
     font-weight: 300;
 }
 
@@ -721,7 +719,7 @@ header.scrolled {
 .value-card {
     padding: 40px 32px;
     border-radius: var(--radius-md);
-    background-color: rgba(255, 255, 255, 0.03); /* Effetto vetro leggerissimo su sfondo scuro */
+    background-color: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     transition: transform var(--transition-fast), border-color var(--transition-fast);
 }
@@ -1319,6 +1317,84 @@ footer {
 
 .footer-bottom strong {
     color: #aaa;
+}
+
+/* ==========================================================================
+   8. ESTENSIONI STORE DETERMINISTICO SITEMASTER (Badge, Sconti, Sold-Out)
+   ========================================================================== */
+.orbis-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: var(--bg-card);
+    color: var(--text-dark);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.orbis-badge + .orbis-badge {
+    top: 44px;
+}
+
+.orbis-badge.badge-featured {
+    background-color: var(--accent-gold);
+    color: #ffffff;
+}
+
+.orbis-badge.badge-new {
+    background-color: var(--text-dark);
+    color: #ffffff;
+}
+
+.orbis-badge.badge-low {
+    background-color: #fdf3e7;
+    color: #9a5b13;
+    border: 1px solid rgba(203, 162, 101, 0.45);
+}
+
+.orbis-badge.badge-soldout {
+    background-color: #f4f0eb;
+    color: var(--text-light);
+}
+
+.product-card.sold-out .product-img {
+    opacity: 0.55;
+    filter: grayscale(40%);
+}
+
+.add-to-cart:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--bg-drawer);
+    color: var(--text-light);
+}
+
+.product-price .old-price {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-right: 6px;
+}
+
+.product-price .new-price {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.product-price .discount-tag {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background-color: rgba(203, 162, 101, 0.16);
+    color: var(--accent-hover);
+    border-radius: var(--radius-sm);
 }
 
 /* ==========================================================================
