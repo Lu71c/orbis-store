@@ -17,14 +17,16 @@
     <!-- Foglio di Stile Esterno -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-orbis-site="aura-skincare">
 
     <!-- ======================================================================
          1. ANNOUNCEMENT BAR (Spedizioni e Valori)
          ====================================================================== -->
+    <!-- ORBIS-SECTION: announcement | Barra Annunci & Spedizioni -->
     <div class="announcement-bar">
-        <span>Spedizione espressa gratuita per ordini superiori a € 50 &bull; Consegna in 24/48h</span>
+        <!-- ORBIS-DESC --><span>Spedizione espressa gratuita per ordini superiori a € 50 &bull; Consegna in 24/48h</span><!-- /ORBIS-DESC -->
     </div>
+    <!-- /ORBIS-SECTION: announcement -->
 
     <!-- ======================================================================
          2. HEADER & NAVIGAZIONE (Desktop & Mobile)
@@ -39,15 +41,15 @@
             <nav class="desktop-nav">
                 <a href="#prodotti" class="nav-link">Collezione</a>
                 <a href="#valori" class="nav-link">Filosofia</a>
-                <a href="#" class="nav-link open-info-trigger" data-modal="ingredienti">Ingredienti</a>
-                <a href="#" class="nav-link open-info-trigger" data-modal="contatti">Assistenza</a>
+                <a href="#" class="nav-link open-info-trigger" data-modal="ingredienti" data-orbis-track="nav-ingredienti" data-orbis-label="Header: Ingredienti">Ingredienti</a>
+                <a href="#" class="nav-link open-info-trigger" data-modal="contatti" data-orbis-track="nav-assistenza" data-orbis-label="Header: Assistenza">Assistenza</a>
             </nav>
         </div>
 
         <a href="#" class="logo">AU<span>R</span>A</a>
 
         <div class="header-right">
-            <button class="cart-toggle" id="openCartBtn" aria-label="Apri Carrello">
+            <button class="cart-toggle" id="openCartBtn" aria-label="Apri Carrello" data-orbis-track="cta-apri-carrello" data-orbis-label="Header: Apri Carrello">
                 <span class="cart-label">Carrello</span>
                 <span class="cart-icon">🛍️</span>
                 <span class="cart-count" id="cartCount">0</span>
@@ -74,20 +76,22 @@
     </div>
 
     <!-- ======================================================================
-         3. HERO PRINCIPALE (Nome File Corretto: aura.hero[1].webp)[cite: 6]
+         3. HERO PRINCIPALE
          ====================================================================== -->
+    <!-- ORBIS-SECTION: hero | Hero & Copertina Principale -->
     <section class="hero" style="background-image: url('img/aura.hero[1].webp');">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <span class="hero-tag">Rituale Botanico Essenziale</span>
-            <h1>L'armonia della pelle autentica.</h1>
-            <p>Formulazioni pulite, estratti botanici purissimi e attivi biotecnologici brevettati per preservare e risvegliare la luminosità naturale del tuo viso.</p>
+            <!-- ORBIS-SUBTITLE --><span class="hero-tag">Rituale Botanico Essenziale</span><!-- /ORBIS-SUBTITLE -->
+            <!-- ORBIS-TITLE --><h1>L'armonia della pelle autentica.</h1><!-- /ORBIS-TITLE -->
+            <!-- ORBIS-DESC --><p>Formulazioni pulite, estratti botanici purissimi e attivi biotecnologici brevettati per preservare e risvegliare la luminosità naturale del tuo viso.</p><!-- /ORBIS-DESC -->
             <div class="hero-actions">
-                <a href="#prodotti" class="btn-primary">Scopri il Catalogo</a>
-                <a href="#valori" class="btn-secondary">La Nostra Etica</a>
+                <a href="#prodotti" class="btn-primary" data-orbis-track="cta-hero-catalogo" data-orbis-label="Hero: Scopri il Catalogo">Scopri il Catalogo</a>
+                <a href="#valori" class="btn-secondary" data-orbis-track="cta-hero-etica" data-orbis-label="Hero: La Nostra Etica">La Nostra Etica</a>
             </div>
         </div>
     </section>
+    <!-- /ORBIS-SECTION: hero -->
 
     <!-- ======================================================================
          4. VETRINA PRODOTTI CON RICERCA E CATEGORIE
@@ -96,11 +100,13 @@
         
         <!-- Intestazione e Controlli E-commerce -->
         <div class="store-header">
+            <!-- ORBIS-SECTION: store-intro | Vetrina Prodotti - Intestazione -->
             <div class="store-intro">
-                <span class="section-tag">Catalogo Esclusivo</span>
-                <h2>La Collezione Trattamenti</h2>
-                <p>20 formule studiate per integrarsi sinergicamente nella tua routine quotidiana.</p>
+                <!-- ORBIS-SUBTITLE --><span class="section-tag">Catalogo Esclusivo</span><!-- /ORBIS-SUBTITLE -->
+                <!-- ORBIS-TITLE --><h2>La Collezione Trattamenti</h2><!-- /ORBIS-TITLE -->
+                <!-- ORBIS-DESC --><p>20 formule studiate per integrarsi sinergicamente nella tua routine quotidiana.</p><!-- /ORBIS-DESC -->
             </div>
+            <!-- /ORBIS-SECTION: store-intro -->
 
             <!-- Barra di Ricerca Live -->
             <div class="search-wrapper">
@@ -125,11 +131,32 @@
             <button class="btn-secondary reset-filters-btn" id="resetFiltersBtn">Mostra tutti i prodotti</button>
         </div>
 
-        <!-- Griglia Prodotti (Rendering immediato con decodifica asincrona) -->
+        <!-- Griglia Prodotti Protetta da Tagliafuoco Store -->
         <div class="product-grid" id="productGrid">
+            <!-- ORBIS-STORE: main-catalog | Collezione Trattamenti -->
+            <!-- ORBIS-STORE-TEMPLATE
+            <article class="product-card {{priority_class}} {{stock_class}}" data-orbis-product="{{id}}" data-category="all" data-name="{{name}}" data-actives="{{description}}">
+                <div class="card-content">
+                    <div class="image-wrapper">
+                        <img src="{{image}}" class="product-img" decoding="async" loading="lazy" alt="{{name}}">
+                        <div class="overlay">{{description}}</div>
+                        {{badge_html}}
+                    </div>
+                    <div class="product-info">
+                        <span class="product-cat-label">{{stock_label}}</span>
+                        <h3>{{name}}</h3>
+                        <p class="product-desc-snippet">{{description}}</p>
+                        <div class="product-price">{{price_html}}</div>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <button class="add-to-cart" data-id="{{id}}" data-name="{{name}}" data-price="{{effective_price}}" data-img="{{image}}" {{disabled_attr}}>{{cta_label}}</button>
+                </div>
+            </article>
+            -->
             
-            <!-- 1. Siero Illuminante[cite: 6] -->
-            <article class="product-card" data-category="sieri" data-name="Siero Illuminante" data-actives="Vitamina C Acido Ialuronico">
+            <!-- 1. Siero Illuminante -->
+            <article class="product-card" data-orbis-product="p1" data-category="sieri" data-name="Siero Illuminante" data-actives="Vitamina C Acido Ialuronico">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/siero.illuminante[1].webp" class="product-img" decoding="async" alt="Siero Illuminante AURA">
@@ -148,8 +175,8 @@
                 </div>
             </article>
 
-            <!-- 2. Crema Rigenerante Notte[cite: 6] -->
-            <article class="product-card" data-category="viso" data-name="Crema Rigenerante Notte" data-actives="Retinolo Botanico Estratti Rari">
+            <!-- 2. Crema Rigenerante Notte -->
+            <article class="product-card" data-orbis-product="p2" data-category="viso" data-name="Crema Rigenerante Notte" data-actives="Retinolo Botanico Estratti Rari">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/crema.rigenerante.notte[1].webp" class="product-img" decoding="async" alt="Crema Rigenerante Notte AURA">
@@ -167,8 +194,8 @@
                 </div>
             </article>
 
-            <!-- 3. Detergente Purificante[cite: 6] -->
-            <article class="product-card" data-category="detersione" data-name="Detergente Purificante" data-actives="Argilla Bianca Te Verde">
+            <!-- 3. Detergente Purificante -->
+            <article class="product-card" data-orbis-product="p3" data-category="detersione" data-name="Detergente Purificante" data-actives="Argilla Bianca Te Verde">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/detergente.purificante[1].webp" class="product-img" decoding="async" alt="Detergente Purificante AURA">
@@ -186,8 +213,8 @@
                 </div>
             </article>
 
-            <!-- 4. Tonico Riequilibrante[cite: 6] -->
-            <article class="product-card" data-category="detersione" data-name="Tonico Riequilibrante" data-actives="Acqua di Rose Amamelide">
+            <!-- 4. Tonico Riequilibrante -->
+            <article class="product-card" data-orbis-product="p4" data-category="detersione" data-name="Tonico Riequilibrante" data-actives="Acqua di Rose Amamelide">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/tonico.riequilibrante[1].webp" class="product-img" decoding="async" alt="Tonico Riequilibrante AURA">
@@ -205,8 +232,8 @@
                 </div>
             </article>
 
-            <!-- 5. Maschera Detox Argilla[cite: 6] -->
-            <article class="product-card" data-category="viso" data-name="Maschera Detox Argilla" data-actives="Argilla Vulcanica Carbone Attivo">
+            <!-- 5. Maschera Detox Argilla -->
+            <article class="product-card" data-orbis-product="p5" data-category="viso" data-name="Maschera Detox Argilla" data-actives="Argilla Vulcanica Carbone Attivo">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/maschera.detox.argilla[1].webp" class="product-img" decoding="async" alt="Maschera Detox Argilla AURA">
@@ -224,8 +251,8 @@
                 </div>
             </article>
 
-            <!-- 6. Olio Corpo Vellutante[cite: 6] -->
-            <article class="product-card" data-category="corpo" data-name="Olio Corpo Vellutante" data-actives="Mandorle Dolci Jojoba">
+            <!-- 6. Olio Corpo Vellutante -->
+            <article class="product-card" data-orbis-product="p6" data-category="corpo" data-name="Olio Corpo Vellutante" data-actives="Mandorle Dolci Jojoba">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/olio.corpo.vellutante[1].webp" class="product-img" decoding="async" alt="Olio Corpo Vellutante AURA">
@@ -243,8 +270,8 @@
                 </div>
             </article>
 
-            <!-- 7. Esfoliante Enzimatico Viso[cite: 6] -->
-            <article class="product-card" data-category="detersione" data-name="Esfoliante Enzimatico Viso" data-actives="Enzimi Papaia Ananas">
+            <!-- 7. Esfoliante Enzimatico Viso -->
+            <article class="product-card" data-orbis-product="p7" data-category="detersione" data-name="Esfoliante Enzimatico Viso" data-actives="Enzimi Papaia Ananas">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/esfoliante.enzimatico.viso[1].webp" class="product-img" decoding="async" alt="Esfoliante Enzimatico Viso AURA">
@@ -262,8 +289,8 @@
                 </div>
             </article>
 
-            <!-- 8. Crema Contorno Occhi[cite: 6] -->
-            <article class="product-card" data-category="viso" data-name="Crema Contorno Occhi" data-actives="Caffeina Peptidi Attivi">
+            <!-- 8. Crema Contorno Occhi -->
+            <article class="product-card" data-orbis-product="p8" data-category="viso" data-name="Crema Contorno Occhi" data-actives="Caffeina Peptidi Attivi">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/crema.contorno.occhi[1].webp" class="product-img" decoding="async" alt="Crema Contorno Occhi AURA">
@@ -281,8 +308,8 @@
                 </div>
             </article>
 
-            <!-- 9. Siero Retinolo Puro 1%[cite: 6] -->
-            <article class="product-card" data-category="sieri" data-name="Siero Retinolo Puro 1%" data-actives="Retinolo Anti-eta Rigenerazione">
+            <!-- 9. Siero Retinolo Puro 1% -->
+            <article class="product-card" data-orbis-product="p9" data-category="sieri" data-name="Siero Retinolo Puro 1%" data-actives="Retinolo Anti-eta Rigenerazione">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/siero.retinolo.puro.1%25[1].webp" class="product-img" decoding="async" alt="Siero Retinolo Puro 1% AURA">
@@ -301,8 +328,8 @@
                 </div>
             </article>
 
-            <!-- 10. Essenza Idratante Profonda[cite: 6] -->
-            <article class="product-card" data-category="sieri" data-name="Essenza Idratante Profonda" data-actives="Estratto di Loto Probiotici">
+            <!-- 10. Essenza Idratante Profonda -->
+            <article class="product-card" data-orbis-product="p10" data-category="sieri" data-name="Essenza Idratante Profonda" data-actives="Estratto di Loto Probiotici">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/essenza.idratante.profonda[1].webp" class="product-img" decoding="async" alt="Essenza Idratante Profonda AURA">
@@ -320,8 +347,8 @@
                 </div>
             </article>
 
-            <!-- 11. Balsamo Labbra Riparatore[cite: 6] -->
-            <article class="product-card" data-category="viso" data-name="Balsamo Labbra Riparatore" data-actives="Burro di Karite Cera d'Api">
+            <!-- 11. Balsamo Labbra Riparatore -->
+            <article class="product-card" data-orbis-product="p11" data-category="viso" data-name="Balsamo Labbra Riparatore" data-actives="Burro di Karite Cera d'Api">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/balsamo.labbra.riparatore[1].webp" class="product-img" decoding="async" alt="Balsamo Labbra Riparatore AURA">
@@ -339,8 +366,8 @@
                 </div>
             </article>
 
-            <!-- 12. Lozione Corpo Esfoliante[cite: 6] -->
-            <article class="product-card" data-category="corpo" data-name="Lozione Corpo Esfoliante" data-actives="AHA BHA Acido Salicilico">
+            <!-- 12. Lozione Corpo Esfoliante -->
+            <article class="product-card" data-orbis-product="p12" data-category="corpo" data-name="Lozione Corpo Esfoliante" data-actives="AHA BHA Acido Salicilico">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/lozione.corpo.esfoliante[1].webp" class="product-img" decoding="async" alt="Lozione Corpo Esfoliante AURA">
@@ -358,8 +385,8 @@
                 </div>
             </article>
 
-            <!-- 13. Crema Mani Protettiva[cite: 6] -->
-            <article class="product-card" data-category="corpo" data-name="Crema Mani Protettiva" data-actives="Olio di Macadamia Ceramidi">
+            <!-- 13. Crema Mani Protettiva -->
+            <article class="product-card" data-orbis-product="p13" data-category="corpo" data-name="Crema Mani Protettiva" data-actives="Olio di Macadamia Ceramidi">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/crema.mani.protettiva[1].webp" class="product-img" decoding="async" alt="Crema Mani Protettiva AURA">
@@ -377,8 +404,8 @@
                 </div>
             </article>
 
-            <!-- 14. Olio Viso Rigenerante[cite: 6] -->
-            <article class="product-card" data-category="sieri" data-name="Olio Viso Rigenerante" data-actives="Rosa Mosqueta Squalano">
+            <!-- 14. Olio Viso Rigenerante -->
+            <article class="product-card" data-orbis-product="p14" data-category="sieri" data-name="Olio Viso Rigenerante" data-actives="Rosa Mosqueta Squalano">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/olio.viso.rigenerante[1].webp" class="product-img" decoding="async" alt="Olio Viso Rigenerante AURA">
@@ -396,8 +423,8 @@
                 </div>
             </article>
 
-            <!-- 15. Siero Niacinamide 10%[cite: 6] -->
-            <article class="product-card" data-category="sieri" data-name="Siero Niacinamide 10%" data-actives="Niacinamide Zinco Pori Sebo">
+            <!-- 15. Siero Niacinamide 10% -->
+            <article class="product-card" data-orbis-product="p15" data-category="sieri" data-name="Siero Niacinamide 10%" data-actives="Niacinamide Zinco Pori Sebo">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/siero.niacinamide.10%25[1].webp" class="product-img" decoding="async" alt="Siero Niacinamide 10% AURA">
@@ -415,8 +442,8 @@
                 </div>
             </article>
 
-            <!-- 16. Detergente Oleoso Struccante[cite: 6] -->
-            <article class="product-card" data-category="detersione" data-name="Detergente Oleoso Struccante" data-actives="Olio Riso Camelia Doppia Detersione">
+            <!-- 16. Detergente Oleoso Struccante -->
+            <article class="product-card" data-orbis-product="p16" data-category="detersione" data-name="Detergente Oleoso Struccante" data-actives="Olio Riso Camelia Doppia Detersione">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/detergente.oleoso.struccante[1].webp" class="product-img" decoding="async" alt="Detergente Oleoso Struccante AURA">
@@ -434,8 +461,8 @@
                 </div>
             </article>
 
-            <!-- 17. Scrub Corpo Levigante[cite: 6] -->
-            <article class="product-card" data-category="corpo" data-name="Scrub Corpo Levigante" data-actives="Sali Mar Morto Agrumi">
+            <!-- 17. Scrub Corpo Levigante -->
+            <article class="product-card" data-orbis-product="p17" data-category="corpo" data-name="Scrub Corpo Levigante" data-actives="Sali Mar Morto Agrumi">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/scrub.corpo.levigante[1].webp" class="product-img" decoding="async" alt="Scrub Corpo Levigante AURA">
@@ -453,8 +480,8 @@
                 </div>
             </article>
 
-            <!-- 18. Booster Vitamina E Pura[cite: 6] -->
-            <article class="product-card" data-category="sieri" data-name="Booster Vitamina E Pura" data-actives="Tocoferolo Antiossidante Barriera">
+            <!-- 18. Booster Vitamina E Pura -->
+            <article class="product-card" data-orbis-product="p18" data-category="sieri" data-name="Booster Vitamina E Pura" data-actives="Tocoferolo Antiossidante Barriera">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/booster.vitamina.e.pura[1].webp" class="product-img" decoding="async" alt="Booster Vitamina E Pura AURA">
@@ -472,8 +499,8 @@
                 </div>
             </article>
 
-            <!-- 19. Crema Collo e Décolleté[cite: 6] -->
-            <article class="product-card" data-category="corpo" data-name="Crema Collo e Décolleté" data-actives="Lifting Peptidi Rassodante">
+            <!-- 19. Crema Collo e Décolleté -->
+            <article class="product-card" data-orbis-product="p19" data-category="corpo" data-name="Crema Collo e Décolleté" data-actives="Lifting Peptidi Rassodante">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/crema.collo.e.decollete[1].webp" class="product-img" decoding="async" alt="Crema Collo e Décolleté AURA">
@@ -491,8 +518,8 @@
                 </div>
             </article>
 
-            <!-- 20. Patch Occhi Idrogel (Set)[cite: 6] -->
-            <article class="product-card" data-category="viso" data-name="Patch Occhi Idrogel (Set)" data-actives="Acido Ialuronico Oro 24K Idrogel">
+            <!-- 20. Patch Occhi Idrogel (Set) -->
+            <article class="product-card" data-orbis-product="p20" data-category="viso" data-name="Patch Occhi Idrogel (Set)" data-actives="Acido Ialuronico Oro 24K Idrogel">
                 <div class="card-content">
                     <div class="image-wrapper">
                         <img src="img/patch.occhi.idrogel.(set)[1].webp" class="product-img" decoding="async" alt="Patch Occhi Idrogel Set AURA">
@@ -510,17 +537,19 @@
                 </div>
             </article>
 
+            <!-- /ORBIS-STORE: main-catalog -->
         </div>
     </main>
 
     <!-- ======================================================================
          5. SEZIONE VALORI & FILOSOFIA DI BRAND
          ====================================================================== -->
+    <!-- ORBIS-SECTION: valori | Valori & Filosofia di Brand -->
     <section class="brand-values-section" id="valori">
         <div class="values-header">
-            <span class="section-tag">I Nostri Standard</span>
-            <h2>La promessa di formulazione AURA</h2>
-            <p>Non crediamo nei compromessi tra sicurezza dermatologica e rispetto ambientale.</p>
+            <!-- ORBIS-SUBTITLE --><span class="section-tag">I Nostri Standard</span><!-- /ORBIS-SUBTITLE -->
+            <!-- ORBIS-TITLE --><h2>La promessa di formulazione AURA</h2><!-- /ORBIS-TITLE -->
+            <!-- ORBIS-DESC --><p>Non crediamo nei compromessi tra sicurezza dermatologica e rispetto ambientale.</p><!-- /ORBIS-DESC -->
         </div>
 
         <div class="values-grid">
@@ -541,6 +570,7 @@
             </div>
         </div>
     </section>
+    <!-- /ORBIS-SECTION: valori -->
 
     <!-- ======================================================================
          6. CARRELLO LATERALE POTENZIATO (+ e - quantità)
@@ -582,7 +612,7 @@
                 <span>Totale Ordine</span>
                 <span id="cartTotalUI">€ 0.00</span>
             </div>
-            <button class="checkout-btn" id="openCheckoutBtn">Procedi al Checkout</button>
+            <button class="checkout-btn" id="openCheckoutBtn" data-orbis-track="cta-procedi-checkout" data-orbis-label="Carrello: Procedi al Checkout">Procedi al Checkout</button>
             <p class="secure-checkout-hint">🔒 Pagamenti cifrati SSL a 256-bit &bull; Reso facile entro 30 giorni</p>
         </div>
     </aside>
@@ -668,7 +698,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-primary btn-submit-order" id="submitOrderBtn">Conferma ed Effettua Ordine</button>
+                    <button type="submit" class="btn-primary btn-submit-order" id="submitOrderBtn" data-orbis-track="conversion-aura-ordine" data-orbis-label="Conversione Store: Ordine Confermato">Conferma ed Effettua Ordine</button>
                 </form>
             </div>
 
@@ -713,11 +743,12 @@
     <!-- ======================================================================
          9. FOOTER UFFICIALE
          ====================================================================== -->
+    <!-- ORBIS-SECTION: footer | Footer, Boutique & Contatti -->
     <footer>
         <div class="footer-top">
             <div class="footer-col brand-col">
-                <div class="logo footer-logo">AU<span>R</span>A</div>
-                <p>Laboratorio botanico ad alta efficacia. Ispirato alla purezza della natura, guidato dal rigore della dermatologia moderna.</p>
+                <!-- ORBIS-TITLE --><div class="logo footer-logo">AU<span>R</span>A</div><!-- /ORBIS-TITLE -->
+                <!-- ORBIS-DESC --><p>Laboratorio botanico ad alta efficacia. Ispirato alla purezza della natura, guidato dal rigore della dermatologia moderna.</p><!-- /ORBIS-DESC -->
             </div>
             <div class="footer-col">
                 <h4>Esplora</h4>
@@ -743,6 +774,7 @@
             <p class="credits">Architettura Store Single-Page sviluppata con <strong>The Orbis Project</strong></p>
         </div>
     </footer>
+    <!-- /ORBIS-SECTION: footer -->
 
     <!-- Motore Logico dello Store -->
     <script src="js/store.js" defer></script>
