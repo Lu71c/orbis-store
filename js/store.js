@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
        ========================================================================== */
     const ORBIS_ANALYTICS = (() => {
         const ENDPOINT = 'https://smith-anchor-untoasted.ngrok-free.dev/api/v1/analytics/hit';
-        const SITE_ID = document.body.getAttribute('data-orbis-site') || 'aura-skincare';
+        const SITE_ID = document.body.getAttribute('data-orbis-site') || 'orbis-store';
         const DWELL_MS = 2000; // Soglia minima di permanenza visiva (2 secondi)
         const trackedSessionKeys = new Set();
 
@@ -620,7 +620,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="section-tag">Tranquillità d'Acquisto</span>
                 <h2>Politica di Reso Estesa</h2>
             </div>
-            <p style="color: var(--text-medium); line-height: 1.8;">Ogni pelle è unica. Se un prodotto AURA non si adatta alle tue esigenze cutanee, hai 30 giorni per restituirlo. Scrivi a concierge@auraskincare.it fornendo il tuo numero d'ordine (es. #AURA-12345) e ti invieremo l'etictta di reso prepagata gratuita. Elaboriamo i rimborsi entro 48 ore dalla ricezione in magazzino.</p>
+            <p style="color: var(--text-medium); line-height: 1.8;">Ogni pelle è unica. Se un prodotto AURA non si adatta alle tue esigenze cutanee, hai 30 giorni per restituirlo. Scrivi a concierge@auraskincare.it fornendo il tuo numero d'ordine (es. #AURA-12345) e ti invieremo l'etichetta di reso prepagata gratuita. Elaboriamo i rimborsi entro 48 ore dalla ricezione in magazzino.</p>
         `
     };
 
