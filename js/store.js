@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const id = btnEl.getAttribute('data-id') || btnEl.getAttribute('data-product-id') || cardEl?.getAttribute('data-orbis-product');
             const name = btnEl.getAttribute('data-name') || btnEl.getAttribute('data-product-name') || cardEl?.getAttribute('data-name') || 'Prodotto AURA';
             const price = btnEl.getAttribute('data-price') || btnEl.getAttribute('data-product-price') || '0';
-            const img = btnEl.getAttribute('data-img') || cardEl?.querySelector('img')?.getAttribute('src') || 'img/placeholder.webp';
+            const img = btnEl.getAttribute('data-img') || cardEl?.querySelector('img')?.getAttribute('src') || 'img/aura.hero[1].webp';
 
             addToCart(id, name, price, img);
         });
