@@ -656,6 +656,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Aggiunta dinamica dell'attributo loading="lazy" alle immagini dei prodotti generate dal backend
+    document.querySelectorAll('.product-card img').forEach(img => {
+        if (!img.hasAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+        }
+    });
+
     // Inizializzazione Globale Finale
     loadCart();
     renderCart();
