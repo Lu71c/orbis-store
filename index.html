@@ -539,15 +539,6 @@
 
             <!-- /ORBIS-STORE: main-catalog -->
         </div>
-
-        <!-- Script per lazy loading immagini dei prodotti (necessario a causa del blocco dinamico del firewall) -->
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                document.querySelectorAll('#productGrid .product-card img').forEach(img => {
-                    img.setAttribute('loading', 'lazy');
-                });
-            });
-        </script>
     </main>
 
     <!-- ======================================================================
