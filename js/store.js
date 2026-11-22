@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ==========================================================================
-       1. INTERFACCIA BASE E NAVIGAZIONE MOBILE
+1. INTERFACCIA BASE E NAVIGAZIONE MOBILE
        ========================================================================== */
     const header = document.getElementById('mainHeader');
     const btnOpenMobile = document.getElementById('openMobileNav');
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileLinks.forEach(link => link.addEventListener('click', () => toggleMobileMenu(true)));
 
     /* ==========================================================================
-       2. LIVE SEARCH E FILTRI CATEGORIA
+2. LIVE SEARCH E FILTRI CATEGORIA
        ========================================================================== */
     const searchInput = document.getElementById('storeSearch');
     const clearSearchBtn = document.getElementById('clearSearch');
@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       3. GESTIONE CARRELLO (Add, Remove, Qty, LocalStorage, Progress Bar)
+3. GESTIONE CARRELLO (Add, Remove, Qty, LocalStorage, Progress Bar)
        ========================================================================== */
     let cart = [];
     const STORAGE_KEY = 'aura_store_cart_v2';
@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       4. MODALE CHECKOUT REALISTICO
+4. MODALE CHECKOUT REALISTICO
        ========================================================================== */
     const openCheckoutBtn = document.getElementById('openCheckoutBtn');
     const checkoutModal = document.getElementById('checkoutModal');
@@ -551,7 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       5. MODALI INFORMATIVI (Ingredienti, Spedizioni, Contatti)
+5. MODALI INFORMATIVI (Ingredienti, Spedizioni, Contatti)
        ========================================================================== */
     const infoModal = document.getElementById('infoModal');
     const infoModalBody = document.getElementById('infoModalBody');
@@ -655,13 +655,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === infoModal) toggleInfoModal(false);
         });
     }
-
-    // Aggiunta dinamica dell'attributo loading="lazy" alle immagini dei prodotti generate dal backend
-    document.querySelectorAll('.product-card img').forEach(img => {
-        if (!img.hasAttribute('loading')) {
-            img.setAttribute('loading', 'lazy');
-        }
-    });
 
     // Inizializzazione Globale Finale
     loadCart();
