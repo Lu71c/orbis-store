@@ -74,13 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function bindClickTracking() {
             document.addEventListener('click', (e) => {
-                // 1. Viste virtuali / modali informativi (Card 3)
+                // 1. Viste virtuali / modali informativi
                 const virtualPageEl = e.target.closest('[data-orbis-page]');
                 if (virtualPageEl) {
                     trackPageView(virtualPageEl.getAttribute('data-orbis-page'));
                 }
 
-                // 2. Pulsanti e CTA Sito (Card 3)
+                // 2. Pulsanti e CTA Sito
                 const trackEl = e.target.closest('[data-orbis-track]');
                 if (trackEl) {
                     const trackId = trackEl.getAttribute('data-orbis-track');
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     sendPulse('track_click', trackId, trackLabel);
                 }
 
-                // 3. Clic su scheda prodotto (Card 4 - Isolato dalle metriche sito)
+                // 3. Clic su scheda prodotto (👆 Clic)
                 const cardContentEl = e.target.closest('.card-content');
                 if (cardContentEl) {
                     const productCard = cardContentEl.closest('[data-orbis-product]');
@@ -109,8 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
             trackCustom(trackId, label) {
                 sendPulse('track_click', trackId, label);
             },
-            trackProductCart(productId) {
-                if (productId) sendPulse('product_cart', productId);
+            trackProductClick(productId) {
+                if (productId) sendPulse('product_click', productId);
+            },
+            trackProductCheckout(productId) {
+                if (productId) sendPulse('product_checkout', productId);
             }
         };
     })();
@@ -203,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const category = card.getAttribute('data-category') || 'all';
             const name = (card.getAttribute('data-name') || '').toLowerCase();
             const actives = (card.getAttribute('data-actives') || '').toLowerCase();
-            
+
             const matchCategory = (currentCategory === 'all') || (category === 'all') || (category === currentCategory);
             const matchSearch = name.includes(currentSearchQuery) || actives.includes(currentSearchQuery);
 
@@ -250,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filterPills.forEach(p => p.classList.remove('active'));
             const targetPill = e.currentTarget;
             targetPill.classList.add('active');
-            
+
             currentCategory = targetPill.getAttribute('data-filter') || 'all';
             ORBIS_ANALYTICS.trackCustom(`filtro-store-${currentCategory}`, `Filtro Catalogo: ${targetPill.textContent.trim()}`);
             filterStore();
@@ -262,12 +265,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (searchInput) searchInput.value = '';
             currentSearchQuery = '';
             if (clearSearchBtn) clearSearchBtn.classList.add('hidden');
-            
+
             filterPills.forEach(p => p.classList.remove('active'));
             const allPill = document.querySelector('.filter-pill[data-filter="all"]');
             if (allPill) allPill.classList.add('active');
             currentCategory = 'all';
-            
+
             filterStore();
         });
     }
@@ -284,15 +287,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCloseCart = document.getElementById('closeCartBtn');
     const cartSidebar = document.getElementById('cartSidebar');
     const cartBackdrop = document.getElementById('cartBackdrop');
-    
+
     const cartItemsContainer = document.getElementById('cartItemsContainer');
     const cartCountUI = document.getElementById('cartCount');
     const cartItemsIndicator = document.getElementById('cartItemsIndicator');
-    
+
     const cartSubtotalUI = document.getElementById('cartSubtotalUI');
     const cartShippingUI = document.getElementById('cartShippingUI');
     const cartTotalUI = document.getElementById('cartTotalUI');
-    
+
     const shippingProgressBar = document.getElementById('shippingProgressBar');
     const shippingStatusText = document.getElementById('shippingStatusText');
 
@@ -334,7 +337,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             cart.push({ id, name, price: parseFloat(price), img, quantity: 1 });
         }
-        ORBIS_ANALYTICS.trackProductCart(id);
+        // Registra il clic di interesse sul prodotto (👆 Clic)
+        ORBIS_ANALYTICS.trackProductClick(id);
         saveCart();
         renderCart();
         toggleCart(true);
@@ -377,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('openCheckoutBtn').disabled = true;
         } else {
             document.getElementById('openCheckoutBtn').disabled = false;
-            
+
             cart.forEach(item => {
                 subtotal += item.price * item.quantity;
                 totalItems += item.quantity;
@@ -420,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const finalTotal = subtotal + (subtotal > 0 && subtotal < FREE_SHIPPING_THRESHOLD ? STANDARD_SHIPPING_COST : 0);
-        
+
         cartSubtotalUI.textContent = `€ ${subtotal.toFixed(2)}`;
         cartTotalUI.textContent = `€ ${finalTotal.toFixed(2)}`;
         cartCountUI.textContent = totalItems.toString();
@@ -462,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutFormStep = document.getElementById('checkoutFormStep');
     const checkoutSuccessStep = document.getElementById('checkoutSuccessStep');
     const checkoutForm = document.getElementById('checkoutForm');
-    
+
     const modalSummaryCount = document.getElementById('modalSummaryCount');
     const modalSummaryItems = document.getElementById('modalSummaryItems');
     const modalSummaryShipping = document.getElementById('modalSummaryShipping');
@@ -507,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const orderAddress = document.getElementById('orderAddress').value;
             const orderCity = document.getElementById('orderCity').value;
             const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-            
+
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_COST;
             const finalTotal = `€ ${(subtotal + shipping).toFixed(2)}`;
@@ -519,6 +523,14 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.style.pointerEvents = 'none';
 
             setTimeout(() => {
+                // Registra gli acquisti effettivi (🛒 Acquisti) per ciascun prodotto confermato (100% anonimo, nessun dato personale inviato)
+                cart.forEach(item => {
+                    const qty = Math.max(1, parseInt(item.quantity, 10) || 1);
+                    for (let i = 0; i < qty; i++) {
+                        ORBIS_ANALYTICS.trackProductCheckout(item.id);
+                    }
+                });
+
                 document.getElementById('receiptOrderId').textContent = orderId;
                 document.getElementById('receiptName').textContent = orderName;
                 document.getElementById('receiptAddress').textContent = `${orderAddress}, ${orderCity}`;
@@ -589,7 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h4 style="color: var(--text-dark); margin-bottom: 8px;">Tempi e Costi di Spedizione</h4>
                 <p style="margin-bottom: 15px;">Spediamo in tutta Italia entro 24/48 ore lavorative tramite corriere espresso (DHL o BRT).<br>
                 La spedizione Standard ha un costo di <strong>€ 5.90</strong>, ma è <strong>gratuita per tutti gli ordini superiori a € 50.00</strong>.</p>
-                
+
                 <h4 style="color: var(--text-dark); margin-bottom: 8px; margin-top: 20px;">Politica di Reso (Soddisfatti o Rimborsati)</h4>
                 <p>Se la tua pelle non ama i nostri prodotti, puoi effettuare il reso gratuitamente entro 30 giorni dalla ricezione dell'ordine, anche se il prodotto è stato parzialmente utilizzato (fino a un massimo del 20%). Il rimborso avverrà sullo stesso metodo di pagamento utilizzato.</p>
             </div>
@@ -601,13 +613,13 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div style="text-align: center; margin-bottom: 30px;">
                 <p style="color: var(--text-medium); margin-bottom: 20px;">I nostri esperti di skincare sono a tua disposizione per consulenze personalizzate o assistenza sugli ordini.</p>
-                
+
                 <div style="background: var(--bg-drawer); padding: 20px; border-radius: var(--radius-md); margin-bottom: 15px;">
                     <span style="font-size: 2rem; display: block; margin-bottom: 10px;">✉️</span>
                     <strong>concierge@auraskincare.it</strong>
                     <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 5px;">Rispondiamo entro 12 ore</p>
                 </div>
-                
+
                 <div style="background: var(--bg-drawer); padding: 20px; border-radius: var(--radius-md);">
                     <span style="font-size: 2rem; display: block; margin-bottom: 10px;">📍</span>
                     <strong>AURA Flagship Store Roma</strong>
