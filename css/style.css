@@ -540,6 +540,24 @@ header.scrolled {
     will-change: transform, opacity;
 }
 
+/* --- Risalto Prodotto Specifico: Siero Massi --- */
+.product-card[data-name*="massi" i] {
+    grid-column: span 2;
+    grid-row: span 2;
+    border: 2px solid var(--accent-gold);
+    box-shadow: 0 15px 40px rgba(203, 162, 101, 0.2);
+}
+
+.product-card[data-name*="massi" i] .product-info h3 {
+    font-size: 1.8rem;
+    color: var(--accent-gold);
+}
+
+.product-card[data-name*="massi" i] .product-desc-snippet {
+    font-size: 1.05rem;
+}
+/* ----------------------------------------------- */
+
 .product-card:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-hover);
@@ -1448,6 +1466,11 @@ footer {
 
     .footer-logo {
         text-align: center;
+    }
+    
+    .product-card[data-name*="massi" i] {
+        grid-column: 1 / -1;
+        grid-row: auto;
     }
 }
 
