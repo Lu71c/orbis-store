@@ -304,6 +304,21 @@
       "image": "img/patch.occhi.idrogel.(set)[1].webp",
       "hidden": false,
       "description": "Trattamento flash defaticante per un risveglio immediato dello sguardo."
+    },
+    {
+      "id": "PRD-332B51",
+      "name": "Siero massi",
+      "price": 50.0,
+      "discount_price": null,
+      "stock_qty": null,
+      "in_stock": true,
+      "priority": "high",
+      "release_date": "2026-11-26",
+      "page": "index.html",
+      "section": "default",
+      "image": "img/product_20261126_191248.webp",
+      "hidden": false,
+      "description": "Siero illuminante profumato"
     }
   ]
 }
